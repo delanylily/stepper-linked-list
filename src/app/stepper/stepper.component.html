@@ -1,1 +1,5 @@
-<step *ngFor="let step of steps" [steps]="step"></step>
+<div class="progress-container">
+  <step *ngFor="let step of steps" [steps]="step"></step>
+</div>
+<button (click)="prev()">Prev</button>
+<button (click)="next()">Next</button>

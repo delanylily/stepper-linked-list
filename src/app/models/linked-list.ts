@@ -49,11 +49,9 @@ export class DoubleLinkedList {
   }
   toArray() {
     if (!this.head) return [];
-    let current = this.head;
     let result = [];
     for (let i = 0; i < this.length; i++) {
-      result.push(current.value);
-      current = current.next;
+      result.push(this.getElementByIndex(i));
     }
     return result;
   }

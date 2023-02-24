@@ -1,3 +1,3 @@
-<div class="circle">
-  <p>{{steps.text}}</p>
+<div [ngClass]="{'active' : steps.value.active}" class="circle-container">
+  <span>{{steps.value.text}}</span>
 </div>
