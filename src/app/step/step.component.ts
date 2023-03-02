@@ -12,4 +12,12 @@ export class StepComponent implements OnInit {
   ngOnInit() {
   }
 
+  setCurrentActive() {
+    if (this.steps.value.active && !this.steps.next?.value.active || this.steps.next === null && this.steps.value.active) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
 }

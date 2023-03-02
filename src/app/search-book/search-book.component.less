@@ -1,0 +1,24 @@
+.book-container {
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  grid-gap:15px;
+  margin-top:15px;
+}
+
+.book-item {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  grid-gap:15px;
+}
+
+@media(max-width: 1000px) {
+  .book-container {
+    grid-template-columns: repeat(2, auto);
+  }
+}
+
+@media(max-width: 800px) {
+  .book-container {
+    grid-template-columns: auto;
+  }
+}
