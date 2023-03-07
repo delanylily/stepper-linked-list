@@ -10,6 +10,12 @@ import { MainComponent } from './main/main.component';
 import { AddBookComponent } from './search-book/search-book.component';
 import { AppRoutingModule } from './app-routing.module';
 import { MainProfileComponent } from './main-profile/main-profile.component';
+import { UserBooksComponent } from './user-books/user-books.component';
+import { AngularFireModule } from '@angular/fire/compat';
+import { environment } from 'src/environments/environment';
+import { LoginComponent } from './auth/login/login.component';
+import { RegisterComponent } from './auth/register/register.component';
+import { FormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     AppComponent,
@@ -18,12 +24,17 @@ import { MainProfileComponent } from './main-profile/main-profile.component';
     StepCardComponent,
     MainComponent,
     AddBookComponent,
-    MainProfileComponent
+    MainProfileComponent,
+    UserBooksComponent,
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    AngularFireModule.initializeApp(environment.firebase)
   ],
   providers: [],
   bootstrap: [AppComponent]

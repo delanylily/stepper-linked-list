@@ -1,0 +1,9 @@
+<h3>My Added books</h3>
+<div class="user-books">
+<div *ngFor="let selectedBook of myBooks">
+    <img src={{selectedBook?.image}}>
+    <div class="body">
+      <h5 class="card-title">{{selectedBook?.title}}</h5>
+    </div>
+  </div>
+</div>

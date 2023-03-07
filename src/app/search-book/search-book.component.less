@@ -3,12 +3,26 @@
   grid-template-columns: repeat(3, auto);
   grid-gap:15px;
   margin-top:15px;
+
 }
 
 .book-item {
   display: grid;
   grid-template-columns: repeat(2, auto);
   grid-gap:15px;
+
+  // &:active, :focus {
+  //   background-color: aliceblue;
+  // }
+
+  &:hover {
+    background-color: aliceblue;
+  }
+}
+
+.book-selected {
+  background-color: aliceblue;
+
 }
 
 @media(max-width: 1000px) {
