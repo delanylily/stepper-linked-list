@@ -1,55 +1,51 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { map, Subject } from 'rxjs';
 import { DoubleLinkedList } from '../models/linked-list';
-import { DummyData } from '../resources/dummy-data';
 @Component({
   selector: 'stepper-container',
   templateUrl: './stepper-container.component.html',
   styleUrls: ['./stepper-container.component.less']
 })
 export class StepperComponent implements OnInit, OnDestroy {
+  @Input() data: any;
   linkedList: DoubleLinkedList = new DoubleLinkedList();
   steps: any;
   activeStep: number = 1;
   activeStepSubscription: Subscription;
   activeStep$: Subject<number> = new Subject();
-  dummyData: Array<any> = DummyData;
 
-  constructor() {
-    this.activeStepSubscription = this.activeStep$.pipe(map(step => {
-      this.linkedList.getElementByIndex(0).value.active = step >= 1;
-      this.linkedList.getElementByIndex(1).value.active = step >= 2;
-      this.linkedList.getElementByIndex(2).value.active = step >= 3;
-      this.linkedList.getElementByIndex(3).value.active = step >= 4;
-      this.steps = this.linkedList.toArray();
-    })).subscribe();
-  }
+  constructor() { }
 
   ngOnInit() {
-    this.linkedList.push({ text: '1', active: true, data: this.dummyData[0] });
-    this.linkedList.push({ text: '2', active: this.activeStep >= 2, data: this.dummyData[1] });
-    this.linkedList.push({ text: '3', active: this.activeStep >= 3, data: this.dummyData[2] });
-    this.linkedList.push({ text: '4', active: this.activeStep >= 3, data: this.dummyData[3] });
+    this.data.map((item, index) => {
+      this.linkedList.push({ active: this.activeStep >= index + 1, data: item });
+    });
     this.steps = this.linkedList.toArray();
+
+    this.activeStepSubscription = this.activeStep$.subscribe(step => {
+      this.steps.map((item, index) => {
+        this.activeStep = step;
+        this.linkedList.getElementByIndex(index).value.active = step >= index + 1;
+      });
+    });
   }
 
   prev() {
-    if (this.activeStep >= 2) {
+    if (this.activeStep > 1) {
       this.activeStep--;
       this.activeStep$.next(this.activeStep);
     }
-  }
+  };
 
   next() {
-    if (this.activeStep <= 3) {
+    if (this.activeStep < this.data.length) {
       this.activeStep++;
       this.activeStep$.next(this.activeStep);
     }
-  }
-
+  };
 
   ngOnDestroy(): void {
     this.activeStepSubscription.unsubscribe();
-  }
+  };
 }

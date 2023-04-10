@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { debounce, debounceTime, map, Subject } from 'rxjs';
+import { debounce, debounceTime, map, Observable, Subject } from 'rxjs';
 import { Book } from '../models/book';
 import { BooksService } from '../services/books.service';
+import { DataService } from '../shared/data.service';
 
 @Component({
   selector: 'search-book',
@@ -19,7 +20,7 @@ export class AddBookComponent implements OnInit {
 
   myBooks = []
 
-  constructor(private readonly bookService: BooksService) { }
+  constructor(private readonly bookService: BooksService, private readonly dataService: DataService) { }
 
   ngOnInit() {
     this.searchInput.pipe(debounceTime(2000)).subscribe((input) => {
@@ -34,13 +35,17 @@ export class AddBookComponent implements OnInit {
   }
 
   addToList() {
-    this.myBooks = JSON.parse(localStorage.getItem('books'));
-    console.log(this.myBooks, 'myBook');
+    // this.myBooks = JSON.parse(localStorage.getItem('books'));
+    // this.myBooks.push(this.selectedBook)
+    // console.log(this.selectedBook, 'select')
+    // this.bookService.bookSelection.next(this.myBooks)
+    // localStorage.setItem('books', JSON.stringify(this.myBooks));
+    this.addBook();
 
-    this.myBooks.push(this.selectedBook)
-    this.bookService.bookSelection.next(this.myBooks)
-    localStorage.setItem('books', JSON.stringify(this.myBooks))
+  }
 
+  addBook() {
+    this.dataService.addBook(this.selectedBook)
   }
 
   getBooks(input) {
@@ -53,6 +58,21 @@ export class AddBookComponent implements OnInit {
       })
     })).subscribe();
   }
+
+  // getBooks(input): Observable<Book[]> {
+  //   return this.bookService.getBooks(input).pipe(
+  //     map((response: any) => {
+  //       const books: Book[] = [];
+  //       response.items.forEach((book: any) => {
+  //         const { volumeInfo } = book;
+  //         if (volumeInfo?.imageLinks) {
+  //           books.push(new Book(volumeInfo));
+  //         }
+  //       });
+  //       return books;
+  //     })
+  //   );
+  // }
 
   eventHandler(input: string) {
     this.books = [];

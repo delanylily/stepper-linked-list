@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Book } from '../models/book';
 import { BooksService } from '../services/books.service';
+import { DataService } from '../shared/data.service';
 
 @Component({
   selector: 'user-books',
@@ -10,9 +12,16 @@ import { BooksService } from '../services/books.service';
 export class UserBooksComponent implements OnInit {
   myBooks: any;
 
-  constructor() { }
+  constructor(private readonly dataService: DataService) { }
 
   ngOnInit() {
     this.myBooks = JSON.parse(localStorage.getItem('books'));
   }
+
+  deleteBook(book: Book) {
+    if (window.confirm('Are you sure you want to delete ' + book.title + ' ?')) {
+      this.dataService.deleteBook(book)
+    }
+  }
+
 }

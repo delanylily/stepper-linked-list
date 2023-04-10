@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { switchMap } from 'rxjs';
+import { UserService } from 'src/app/services/user.service';
 import { AuthService } from '../auth.service';
 
 @Component({
@@ -10,7 +13,7 @@ export class RegisterComponent implements OnInit {
   email: string = '';
   password: string = '';
 
-  constructor(private auth: AuthService) { }
+  constructor(private auth: AuthService, private userService: UserService, private router: Router) { }
 
   ngOnInit() {
   }
@@ -25,7 +28,20 @@ export class RegisterComponent implements OnInit {
       alert('Please enter password');
       return;
     }
-    this.auth.register(this.email, this.password);
+    const email = this.email;
+    this.auth.signUp(this.email, this.password).pipe(
+      switchMap(({ user: { uid } }) => this.userService.addUser({ uid, email }))
+    ).subscribe(() => {
+      alert('Registration Successful, Please verify email');
+      this.router.navigate(['/login']);
+    });
+    // this.auth.signUp(this.email, this.password).pipe(
+    //   switchMap(({ user: { uid } }) => this.userService.addUser({ uid: email, email: this.email }))
+    // ).subscribe(() => {
+    //   alert('Registration Successful, Please verify email');
+    //   this.router.navigate(['/login']);
+    // });
+
     this.email = '';
     this.password = '';
   }

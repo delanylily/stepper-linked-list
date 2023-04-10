@@ -1,6 +1,10 @@
-<div *ngIf="setCurrentActive()">
-  <h3>{{step.value.data.name}}</h3>
-  <p>{{step.value.data.text}}</p>
+<div class="book-card" *ngIf="setCurrentActive()">
+  <div>
+    <h3>{{step.value.data.title}}</h3>
+    <h6>{{step.value.data.author}}</h6>
+  </div>
+  <img src="{{step.value.data.image}}" alt="">
+  <p>{{step.value.data.description | slice:0:300}}</p>
   </div>
   <div>
 

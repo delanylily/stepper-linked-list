@@ -10,6 +10,7 @@ export class StepCardComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    console.log(this.step, 'step')
   }
 
   setCurrentActive() {
@@ -19,5 +20,4 @@ export class StepCardComponent implements OnInit {
       return false;
     }
   }
-
 }
