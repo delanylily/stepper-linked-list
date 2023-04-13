@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../auth/auth.service';
+import { AuthService } from '../auth/services/auth.service';
 import { HotToastService } from '@ngneat/hot-toast';
 import { Router } from '@angular/router';
 
@@ -12,8 +12,7 @@ export class HeaderComponent implements OnInit {
 
   constructor(private auth: AuthService, private router: Router, private toastr: HotToastService) { }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
   logout() {
     this.auth.signOut().pipe(

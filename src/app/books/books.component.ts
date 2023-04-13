@@ -1,11 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { collectionData, doc, docData, Firestore } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
-import { collection } from '@firebase/firestore';
-import { Observable, Subject, Subscription } from 'rxjs';
-import { Book } from '../models/book';
-import { DataService } from '../shared/data.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'books',
@@ -19,17 +15,13 @@ export class BooksComponent implements OnInit, OnDestroy {
   constructor(private router: Router, private angularFirestore: AngularFirestore) { }
 
   ngOnInit() {
-    this.getAllBooks();
+    this.booksSubscription = this.angularFirestore.collection('Books').valueChanges().subscribe(data => {
+      this.booksData = data;
+    });
   }
 
   addBook() {
     this.router.navigateByUrl('/add-book')
-  }
-
-  getAllBooks() {
-    this.booksSubscription = this.angularFirestore.collection('Books').valueChanges().subscribe(data => {
-      this.booksData = data;
-    })
   }
 
   ngOnDestroy(): void {

@@ -7,11 +7,10 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class StepCardComponent implements OnInit {
   @Input() step: any;
+
   constructor() { }
 
-  ngOnInit() {
-    console.log(this.step, 'step')
-  }
+  ngOnInit() { }
 
   setCurrentActive() {
     if (this.step.value.active && !this.step.next?.value.active || this.step.next === null && this.step.value.active) {

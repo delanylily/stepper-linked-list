@@ -14,7 +14,7 @@ export class UserDetailsComponent implements OnInit {
     email: new FormControl(''),
     books: new FormControl(''),
     photoUrl: new FormControl('')
-  })
+  });
 
   constructor() { }
 
@@ -22,7 +22,5 @@ export class UserDetailsComponent implements OnInit {
   }
 
   saveProfile() {
-
   }
-
 }

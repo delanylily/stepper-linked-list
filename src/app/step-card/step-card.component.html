@@ -4,7 +4,16 @@
     <h6>{{step.value.data.author}}</h6>
   </div>
   <img src="{{step.value.data.image}}" alt="">
-  <p>{{step.value.data.description | slice:0:300}}</p>
+  <div class="details">
+    <i class="fa fa-info-circle"></i>
+    <p>{{step.value.data.description | slice:0:300}}</p>
   </div>
-  <div>
-
+  <div class="details">
+    <i class="fa fa-bookmark"></i>
+    <div>
+      <span class="badge-main">Borrow</span>
+      <span class="badge-main">Lend</span>
+    </div>
+  </div>
+</div>
+<div>

@@ -1,27 +1,25 @@
+@import '../../assets/styles/colors.less';
+
 .book-container {
   display: grid;
   grid-template-columns: repeat(3, auto);
-  grid-gap:15px;
-  margin-top:15px;
+  grid-gap: 15px;
+  margin-top: 15px;
 
 }
 
 .book-item {
   display: grid;
   grid-template-columns: repeat(2, auto);
-  grid-gap:15px;
-
-  // &:active, :focus {
-  //   background-color: aliceblue;
-  // }
+  grid-gap: 15px;
 
   &:hover {
-    background-color: aliceblue;
+    background-color: @main-clear-blue;
   }
 }
 
 .book-selected {
-  background-color: aliceblue;
+  background-color: @main-clear-blue;
 
 }
 

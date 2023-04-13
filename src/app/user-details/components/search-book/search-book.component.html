@@ -7,8 +7,8 @@
   <div class="col-md-12">
     <button [disabled]="!toggleBook" (click)="addToList()" class="btn btn-primary">Add book to list</button>
     <div class="book-container">
-
-      <div [ngClass]="{'book-selected' : toggleBook && index === i}" (click)="bookSelected(item, i)" class="book-item" *ngFor="let item of books; index as i">
+      <div [ngClass]="{'book-selected' : toggleBook && index === i}" (click)="bookSelected(item, i)" class="book-item"
+        *ngFor="let item of books; index as i">
         <img src={{item.image}}>
         <div class="body">
           <h5 class="card-title">{{item.title}}</h5>

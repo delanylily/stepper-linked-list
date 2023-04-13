@@ -5,6 +5,7 @@ export class Book {
   subtitle;
   description;
   image;
+
   constructor(book: any) {
     this.title = book.title;
     this.author = book.authors[0];

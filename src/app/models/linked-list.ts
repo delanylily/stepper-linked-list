@@ -47,6 +47,7 @@ export class DoubleLinkedList {
     }
     return temp;
   }
+
   toArray() {
     if (!this.head) return [];
     let result = [];

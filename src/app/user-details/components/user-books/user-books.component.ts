@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { Book } from '../models/book';
-import { BooksService } from '../services/books.service';
-import { DataService } from '../shared/data.service';
+import { Book } from '../../../models/book';
+import { DataService } from '../../../shared/data.service';
 
 @Component({
   selector: 'user-books',
@@ -19,9 +17,8 @@ export class UserBooksComponent implements OnInit {
   }
 
   deleteBook(book: Book) {
-    if (window.confirm('Are you sure you want to delete ' + book.title + ' ?')) {
-      this.dataService.deleteBook(book)
+    if (window.confirm(`Are you sure you want to delete ${book.title} ? `)) {
+      this.dataService.deleteBook(book);
     }
   }
-
 }

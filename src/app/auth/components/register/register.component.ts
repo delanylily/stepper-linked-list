@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { switchMap } from 'rxjs';
 import { UserService } from 'src/app/services/user.service';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -41,9 +41,7 @@ export class RegisterComponent implements OnInit {
     //   alert('Registration Successful, Please verify email');
     //   this.router.navigate(['/login']);
     // });
-
     this.email = '';
     this.password = '';
   }
-
 }

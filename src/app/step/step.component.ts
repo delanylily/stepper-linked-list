@@ -7,10 +7,10 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class StepComponent implements OnInit {
   @Input() steps: any;
+
   constructor() { }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
   setCurrentActive() {
     if (this.steps.value.active && !this.steps.next?.value.active || this.steps.next === null && this.steps.value.active) {
@@ -19,5 +19,4 @@ export class StepComponent implements OnInit {
       return false;
     }
   }
-
 }

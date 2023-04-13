@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../../services/auth.service';
 import { HotToastService } from '@ngneat/hot-toast';
 import { Router } from '@angular/router';
 
@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
   email: string = '';
   password: string = '';
+
   constructor(private auth: AuthService, private readonly toastr: HotToastService, private readonly router: Router) { }
 
   ngOnInit() {
@@ -32,9 +33,8 @@ export class LoginComponent implements OnInit {
         error: ({ message }) => `there was an error: ${message}`
       })
     ).subscribe(() => {
-      this.router.navigate(['/home'])
+      this.router.navigate(['/home']);
     });
-
     this.email = '';
     this.password = '';
   }

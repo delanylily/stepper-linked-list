@@ -1,6 +1,31 @@
+@import '../../assets/styles/colors.less';
+
 .book-card {
   display: grid;
   grid-template-rows: auto 200px auto;
   place-items: center;
   text-align: center;
+  grid-row-gap: 15px;
+}
+
+.details {
+  display: grid;
+  grid-template-columns: 30px 70vw;
+  text-align: justify;
+  align-items: baseline;
+}
+
+.fa {
+  font-size: 18px;
+}
+
+.badge-main {
+  background-color: @main-blue;
+  font-size: 15px;
+  border-radius: 6px;
+  padding: 4px 12px;
+  color: white;
+  font-weight: 500;
+  margin: 5px;
+  letter-spacing: 0.5px;
 }
