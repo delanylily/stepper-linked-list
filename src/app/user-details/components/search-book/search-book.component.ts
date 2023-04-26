@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { HotToastService } from '@ngneat/hot-toast';
 import { debounceTime, map, Subject } from 'rxjs';
+import { AuthService } from 'src/app/auth/services/auth.service';
+import { UserService } from 'src/app/services/user.service';
 import { Book } from '../../../models/book';
 import { BooksService } from '../../../services/books.service';
 import { DataService } from '../../../shared/data.service';
@@ -16,13 +19,13 @@ export class SearchBookComponent implements OnInit {
   selectedBook: any;
   toggleBook: boolean = false;
   index: any;
-  myBooks = []
+  myBooks = [];
 
-  constructor(private readonly bookService: BooksService, private readonly dataService: DataService) { }
+  constructor(private readonly bookService: BooksService, private readonly dataService: DataService, private authService: AuthService, private toastr: HotToastService) { }
 
   ngOnInit() {
     this.searchInput.pipe(debounceTime(2000)).subscribe((input) => {
-      this.getBooks(input)
+      this.getBooks(input);
     });
   }
 
@@ -32,16 +35,15 @@ export class SearchBookComponent implements OnInit {
     this.selectedBook = item;
   }
 
-  addToList() {
-    // this.myBooks = JSON.parse(localStorage.getItem('books'));
-    // localStorage.setItem('books', JSON.stringify(this.myBooks));
-    // this.myBooks.push(this.selectedBook)
-    // this.bookService.bookSelection.next(this.myBooks)
-    this.addBook();
-  }
 
   addBook() {
-    this.dataService.addBook(this.selectedBook);
+    this.authService.currentUser$.subscribe(res => {
+      this.dataService.addBook(this.selectedBook, res.uid).then(ref => {
+        this.toastr.success(`Your book "${this.selectedBook.title}" has been added succesfully!`);
+      }, error => {
+        this.toastr.error(`There has been an error adding the book: ${error}`);
+      });
+    });
   }
 
   getBooks(input) {
@@ -51,7 +53,7 @@ export class SearchBookComponent implements OnInit {
           this.book = new Book(book.volumeInfo);
           this.books.push(this.book);
         }
-      })
+      });
     })).subscribe();
   }
 

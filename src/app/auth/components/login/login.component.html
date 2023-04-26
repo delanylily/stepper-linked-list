@@ -19,13 +19,13 @@
             <button (click)="login()" type="button" class="btn btn-info">Login</button>
             <div class="row">
               <div class="col-md-6">
-                <a style="text-decoration: none;" href="/register">Need account? <span
+                <a [routerLink]="['register']" style="text-decoration: none;">Need account? <span
                     class="text-danger">Register</span></a>
               </div>
               <div class="col-md-6">
-                <a href="/forgot-password" style="text-decoration: none;" class="text-dark" href="">Forgot password?</a>
+                <a [routerLink]="['/auth/forgot-password']" style="text-decoration: none;" class="text-dark">Forgot password?</a>
               </div>
-              <!-- <div class="row-mt-2">
+              <div class="row-mt-2">
                 <a style = "text-decoration: none; cursor: pointer;" (click)="signInWithGoogle()">
                   <div class="card shadow text-center">
                     <div class="card-body">
@@ -33,7 +33,7 @@
                     </div>
                   </div>
                 </a>
-              </div> -->
+              </div>
             </div>
           </form>
         </div>

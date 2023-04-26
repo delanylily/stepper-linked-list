@@ -15,13 +15,14 @@ export class HeaderComponent implements OnInit {
   ngOnInit() { }
 
   logout() {
+    // this.auth.logout();
     this.auth.signOut().pipe(
       this.toastr.observe({
         success: 'Logout success',
         loading: 'Logging out...'
       })
     ).subscribe(() => {
-      this.router.navigate(['/login']);
+      this.router.navigate(['/auth']);
     });
   }
 }

@@ -12,7 +12,7 @@ export class UserService {
   constructor(private firestore: Firestore, private authenticationService: AuthService) {
   }
 
-  get getCurrentUser$(): Observable<User | null> {
+  getCurrentUser$(): Observable<User | null> {
     return this.authenticationService.currentUser$.pipe(
       switchMap(user => {
         if (!user?.uid) {
@@ -20,7 +20,6 @@ export class UserService {
         }
         const ref = doc(this.firestore, 'users', user?.uid);
         return docData(ref) as Observable<User>;
-
       })
     )
   }

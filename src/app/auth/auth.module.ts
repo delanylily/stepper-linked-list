@@ -6,13 +6,13 @@ import { RegisterComponent } from './components/register/register.component';
 import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
 import { AuthRoutingModule } from './auth.routing.module';
 import { getAuth, provideAuth } from '@angular/fire/auth';
-import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   imports: [
-    BrowserModule,
     CommonModule,
+    RouterModule,
     FormsModule,
     AuthRoutingModule,
     provideAuth(() => getAuth()),

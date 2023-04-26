@@ -19,10 +19,11 @@ import { getStorage, provideStorage } from '@angular/fire/storage';
 import { getFirestore, doc, getDoc } from 'firebase/firestore';
 
 import { HotToastModule } from '@ngneat/hot-toast';
-import { HeaderComponent } from './header/header.component';
 import { BooksComponent } from './books/books.component';
 import { InboxComponent } from './inbox/inbox.component';
 import { UserDetailsModule } from './user-details/user-details.module';
+import { FrameModule } from './frame/frame.module';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,16 +31,17 @@ import { UserDetailsModule } from './user-details/user-details.module';
     HomeComponent,
     StepComponent,
     StepCardComponent,
-    HeaderComponent,
     BooksComponent,
-    InboxComponent
+    InboxComponent,
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     AuthModule,
+    FrameModule,
     UserDetailsModule,
     AppRoutingModule,
+    AngularFireAuthModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     AngularFireModule.initializeApp(environment.firebase),
     // provideAuth(() => getAuth()),

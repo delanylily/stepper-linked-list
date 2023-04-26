@@ -6,14 +6,15 @@ import { RegisterComponent } from "./components/register/register.component";
 import { VerifyEmailComponent } from "./components/verify-email/verify-email.component";
 
 const routes = [
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path: 'login', component: LoginComponent },
+  { path: '', redirectTo: 'auth', pathMatch: 'full' },
+  { path: '', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'verify-password', component: VerifyEmailComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
 
 ]
 @NgModule({
-  imports: [RouterModule.forChild(routes)]
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule]
 })
 export class AuthRoutingModule { }

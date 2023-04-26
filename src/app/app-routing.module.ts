@@ -3,13 +3,14 @@ import { RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { BooksComponent } from './books/books.component';
 import { InboxComponent } from './inbox/inbox.component';
+import { FrameModule } from './frame/frame.module';
 
 const routes = [
   { path: 'home', component: HomeComponent },
   { path: 'inbox', component: InboxComponent },
   { path: 'books', component: BooksComponent },
   { path: 'user-details', loadChildren: () => import('./user-details/user-details.module').then(m => m.UserDetailsModule) },
-  { path: 'login', loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule) }
+  { path: 'auth', loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule) }
 ]
 
 @NgModule({

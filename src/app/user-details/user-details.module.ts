@@ -6,21 +6,21 @@ import { SearchBookComponent } from './components/search-book/search-book.compon
 import { UserBooksComponent } from './components/user-books/user-books.component';
 import { UserDetailsRoutingModule } from './user-details.routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { FrameComponent } from '../frame/frame.component';
+import { FrameModule } from '../frame/frame.module';
 
 @NgModule({
   imports: [
     CommonModule,
     UserDetailsRoutingModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    FrameModule
   ],
   declarations: [
     UserDetailsComponent,
     SearchBookComponent,
     AddBookComponent,
     UserBooksComponent,
-    FrameComponent
   ]
 })
 export class UserDetailsModule { }

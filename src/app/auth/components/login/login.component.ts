@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
   email: string = '';
   password: string = '';
+  isLoggingIn = false;
 
   constructor(private auth: AuthService, private readonly toastr: HotToastService, private readonly router: Router) { }
 
@@ -18,6 +19,7 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
+    this.isLoggingIn = true;
     if (this.email === '') {
       alert('Please enter email');
       return;
@@ -26,7 +28,7 @@ export class LoginComponent implements OnInit {
       alert('Please enter password');
       return;
     }
-    this.auth.signIn(this.email, this.password).pipe(
+    this.auth.login(this.email, this.password).pipe(
       this.toastr.observe({
         success: 'Logged in successfully',
         loading: 'Logging in...',
@@ -39,8 +41,8 @@ export class LoginComponent implements OnInit {
     this.password = '';
   }
 
-  // signInWithGoogle() {
-  //   this.auth.signInWithGoogle();
-  // }
+  signInWithGoogle() {
+    this.auth.signInWithGoogle();
+  }
 
 }

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/compat/firestore'
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { Observable } from 'rxjs';
 import { Book } from '../models/book';
 
 @Injectable({
@@ -12,21 +13,20 @@ export class DataService {
     author: '',
     description: '',
     image: ''
-  }
+  };
 
-  constructor(private firestore: AngularFirestore,) { }
+  constructor(private firestore: AngularFirestore) { }
 
-  addBook(book: Book) {
+  addBook(book: Book, userId: string) {
     this.bookObj.id = this.firestore.createId();
     this.bookObj.title = book.title;
     this.bookObj.author = book.author;
     this.bookObj.description = book.description !== undefined ? book.description : '';
     this.bookObj.image = book.image;
-    return this.firestore.collection('/Books').add(this.bookObj);
+    return this.firestore.collection(`/users/${userId}/books`).add(this.bookObj);
   }
 
   getBooks() {
-    // const ref = doc(this.fire, 'Books', ?.id)
     return this.firestore.collection('Books').snapshotChanges();
   }
 
@@ -38,10 +38,10 @@ export class DataService {
     return this.firestore.doc('/Books/' + book.id).delete();
   }
 
-  updateBook(book: Book) {
-    this.deleteBook(book);
-    this.addBook(book);
-  }
+  // updateBook(book: Book) {
+  //   this.deleteBook(book);
+  //   this.addBook(book);
+  // }
 }
 
 
