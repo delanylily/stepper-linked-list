@@ -35,8 +35,7 @@ export class SearchBookComponent implements OnInit {
     this.selectedBook = item;
   }
 
-
-  addBook() {
+  onBookSaved() {
     this.authService.currentUser$.subscribe(res => {
       this.dataService.addBook(this.selectedBook, res.uid).then(ref => {
         this.toastr.success(`Your book "${this.selectedBook.title}" has been added succesfully!`);
@@ -45,6 +44,17 @@ export class SearchBookComponent implements OnInit {
       });
     });
   }
+
+
+  // addBook() {
+  //   this.authService.currentUser$.subscribe(res => {
+  //     this.dataService.addBook(this.selectedBook, res.uid).then(ref => {
+  //       this.toastr.success(`Your book "${this.selectedBook.title}" has been added succesfully!`);
+  //     }, error => {
+  //       this.toastr.error(`There has been an error adding the book: ${error}`);
+  //     });
+  //   });
+  // }
 
   getBooks(input) {
     return this.bookService.getBooks(input).pipe(map((response: any) => {

@@ -5,7 +5,8 @@
 </div>
 <div class="row">
   <div class="col-md-12">
-    <button [disabled]="!toggleBook" (click)="addBook()" class="btn btn-primary">Add book to list</button>
+    <!-- <button [disabled]="!toggleBook" (click)="addBook()" class="btn btn-primary">Add book to list</button> -->
+    <button [disabled]="!toggleBook" (click)="modal.toggleModal()" class="btn btn-primary">Add book to list</button>
     <div class="book-container">
       <div [ngClass]="{'book-selected' : toggleBook && index === i}" (click)="bookSelected(item, i)" class="book-item"
         *ngFor="let item of books; index as i">
@@ -19,3 +20,5 @@
     </div>
   </div>
 </div>
+
+<add-book-confirmation-modal (saveBook)="onBookSaved()" [selectedBook]="selectedBook" #modal></add-book-confirmation-modal>

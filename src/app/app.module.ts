@@ -24,6 +24,7 @@ import { InboxComponent } from './inbox/inbox.component';
 import { UserDetailsModule } from './user-details/user-details.module';
 import { FrameModule } from './frame/frame.module';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 @NgModule({
   declarations: [
     AppComponent,
@@ -48,6 +49,7 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
     provideFirestore(() => getFirestore()),
     provideStorage(() => getStorage()),
     HotToastModule.forRoot(),
+    NoopAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

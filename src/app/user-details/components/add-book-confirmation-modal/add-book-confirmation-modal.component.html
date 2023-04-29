@@ -1,0 +1,29 @@
+<div *ngIf="selectedBook" class="modal" [ngClass]="{'open': isOpen}">
+  <div class="modal-content">
+    <i (click)="toggleModal()" class="fa fa-close"></i>
+    <h3>Confirm to collection</h3>
+    <div class="modal-info">
+      <div class="book-info">
+        <img src="{{selectedBook.image}}" alt="">
+        <div class="text">
+          <h6>Title</h6>
+          <p>{{selectedBook.title}}</p>
+          <h6>Author</h6>
+          <p>{{selectedBook.author}}</p>
+          <h6>Description</h6>
+          <p>{{selectedBook.subtitle}}</p>
+        </div>
+      </div>
+      <div class="availability">
+        <h3>Is this book available to lend or to swap?</h3>
+        <div class="btn-group-3">
+          <button>Lend</button>
+          <button>Swap</button>
+          <button>Both</button>
+        </div>
+        <p><i class="fa fa-map-pin"></i> Valencia</p>
+      </div>
+      <button class="btn btn-primary" (click)="onSave()">Save</button>
+    </div>
+  </div>
+</div>

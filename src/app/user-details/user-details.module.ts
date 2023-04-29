@@ -7,6 +7,7 @@ import { UserBooksComponent } from './components/user-books/user-books.component
 import { UserDetailsRoutingModule } from './user-details.routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FrameModule } from '../frame/frame.module';
+import { AddBookConfirmationModalComponent } from './components/add-book-confirmation-modal/add-book-confirmation-modal.component';
 
 @NgModule({
   imports: [
@@ -21,6 +22,7 @@ import { FrameModule } from '../frame/frame.module';
     SearchBookComponent,
     AddBookComponent,
     UserBooksComponent,
+    AddBookConfirmationModalComponent
   ]
 })
 export class UserDetailsModule { }
