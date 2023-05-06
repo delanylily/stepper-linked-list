@@ -1,0 +1,31 @@
+<div class="modal" [ngClass]="{'open': isOpen}">
+  <div class="modal-content">
+    <i (click)="toggleModal()" class="fa fa-close"></i>
+    <h2>Edit Profile</h2>
+    <form [formGroup]="userForm" (submit)="onConfirm()">
+      <div class="user-edit form-group">
+      <!-- <div class="user-img">
+        <img src="{{imageUrl}}" alt="">
+        <i class="fa fa-edit">
+        </i>
+        </div> -->
+        <input class="custom-file-input form-control" formControlName="profileImg" (change)="onFileSelected($event)" type="file">
+      </div>
+      <div class="details">
+        <div class="form-group">
+          <label>Name</label>
+          <input class="form-control" type="text" placeholder="Name" formControlName="displayName">
+        </div>
+        <div class="form-group">
+          <label>Language</label>
+          <input class="form-control" type="text" placeholder="Language" formControlName="language">
+        </div>
+        <button type="submit">Submit changes</button>
+    </div>
+  </form>
+    <div class="buttons">
+      <button (click)="onConfirm()">Confirm</button>
+      <button (click)="toggleModal()">Cancel</button>
+    </div>
+  </div>
+</div>

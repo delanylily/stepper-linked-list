@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { doc } from '@angular/fire/firestore';
+import { getFirestore } from 'firebase/firestore';
 import { Observable } from 'rxjs';
 import { Book } from '../models/book';
 
@@ -14,16 +16,36 @@ export class DataService {
     description: '',
     image: ''
   };
-
   constructor(private firestore: AngularFirestore) { }
 
-  addBook(book: Book, userId: string) {
-    this.bookObj.id = this.firestore.createId();
+
+
+  addBookWithId(book: Book, userId: string) {
     this.bookObj.title = book.title;
     this.bookObj.author = book.author;
     this.bookObj.description = book.description !== undefined ? book.description : '';
     this.bookObj.image = book.image;
-    return this.firestore.collection(`/users/${userId}/books`).add(this.bookObj);
+
+    let collectionRef = this.firestore.collection(`/users/${userId}/books`);
+    return collectionRef.add(this.bookObj).then((docRef) => {
+      docRef.update({ id: docRef.id });
+    });
+  }
+
+
+
+  getBooksDocument(userId) {
+    return this.firestore.collection(`/users/${userId}/books`).snapshotChanges();
+
+  }
+
+  getUserBooks(userId: string) {
+    return this.firestore.collection(`/users/${userId}/books`).valueChanges();
+  }
+
+  deleteUserBook(userId: string, bookId: string) {
+    const itemRef = this.firestore.doc(`/users/${userId}/books/${bookId}`);
+    return itemRef.delete();
   }
 
   getBooks() {

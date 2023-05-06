@@ -9,9 +9,9 @@ const routes = [
   { path: 'home', component: HomeComponent },
   { path: 'inbox', component: InboxComponent },
   { path: 'books', component: BooksComponent },
-  { path: 'user-details', loadChildren: () => import('./user-details/user-details.module').then(m => m.UserDetailsModule) },
+  { path: 'user-profile', loadChildren: () => import('./user-profile/user-profile.module').then(m => m.UserProfileModule) },
   { path: 'auth', loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule) }
-]
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

@@ -23,6 +23,8 @@
     "@angular/router": "~13.2.0",
     "@ngneat/hot-toast": "^4.1.0",
     "@ngneat/overview": "^3.0.0",
+    "@ngrx/effects": "^15.4.0",
+    "@ngrx/store": "^15.4.0",
     "bootstrap": "^5.2.3",
     "eslint-config-prettier": "^8.8.0",
     "firebase": "^9.20.0",

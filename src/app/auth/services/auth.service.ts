@@ -9,15 +9,17 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 export class AuthService {
   currentUser$ = authState(this.auth);
+  user$ = this.afAuth.authState;
 
-  constructor(private router: Router, private readonly auth: Auth, private afAuth: AngularFireAuth) { }
+  constructor(private router: Router, private readonly auth: Auth, private afAuth: AngularFireAuth) {
+  }
 
   login(email: string, password: string): Observable<any> {
     return from(this.afAuth.signInWithEmailAndPassword(email, password));
   }
 
   signOut(): Observable<any> {
-    return from(this.afAuth.signOut())
+    return from(this.afAuth.signOut());
   }
 
   signIn(email: string, password: string): Observable<any> {
@@ -35,10 +37,10 @@ export class AuthService {
   signInWithGoogle() {
     return this.afAuth.signInWithPopup(new GoogleAuthProvider).then((res) => {
       this.router.navigate(['/home']);
-      localStorage.setItem('token', JSON.stringify(res.user?.uid))
+      localStorage.setItem('token', JSON.stringify(res.user?.uid));
     }, err => {
-      alert(err.message)
-    })
+      alert(err.message);
+    });
   }
 
   // login(email: string, password: string) {

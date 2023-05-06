@@ -1,0 +1,57 @@
+.user-details {
+  display: grid;
+  grid-template-columns: auto auto;
+  justify-content: space-evenly;
+}
+
+.details {
+  display: grid;
+  grid-template-rows: repeat(3, auto);
+}
+
+.row-align {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  grid-column-gap: 17px;
+}
+
+.user-edit {
+  display: grid;
+  grid-template-rows: repeat(3, auto);
+}
+.user-img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: white;
+  box-shadow: 1px 0 3px 1px #80808066;
+
+  & img {
+    width: inherit;
+    height: inherit;
+    padding: 10px;
+  }
+
+  & .fa-edit {
+    text-align: right;
+  }
+}
+
+.custom-file-input {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 8px;
+  font-size: 16px;
+  color: #555;
+  background-color: #fff;
+}
+
+.custom-file-input:hover {
+  cursor: pointer;
+  background-color: #f5f5f5;
+}
+
+.custom-file-input:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #007bff;
+}
