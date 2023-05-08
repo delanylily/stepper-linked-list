@@ -12,10 +12,7 @@ import { UserMainComponent } from './components/main/user-main.component';
 import { UserDetailsComponent } from './components/user-details/user-details.component';
 import { UserProfileRoutingModule } from './user-profile.routing.module';
 import { EditProfileModalComponent } from './components/edit-profile-modal/edit-profile-modal.component';
-import { StoreModule } from '@ngrx/store';
-import { userFeatureKey, userReducer } from './state/reducers';
-import { EffectsModule } from '@ngrx/effects';
-import { UserEffects } from './state/user.effects';
+
 
 @NgModule({
   imports: [
@@ -23,9 +20,9 @@ import { UserEffects } from './state/user.effects';
     UserProfileRoutingModule,
     ReactiveFormsModule,
     FormsModule,
-    FrameModule,
-    StoreModule.forFeature(userFeatureKey, userReducer),
-    EffectsModule.forFeature(UserEffects)
+    FrameModule
+    // StoreModule.forFeature(userFeatureKey, userReducer),
+    // EffectsModule.forFeature(UserEffects)
   ],
   declarations: [
     UserMainComponent,

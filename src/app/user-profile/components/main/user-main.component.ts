@@ -1,12 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { FormControl, FormGroup } from '@angular/forms';
-import { Store } from '@ngrx/store';
 import { filter, map, Subscription, switchMap, tap } from 'rxjs';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user.service';
-import { user } from '../../state/user.selector';
 
 @Component({
   selector: 'user-main',
@@ -27,16 +25,15 @@ export class UserMainComponent implements OnInit, OnDestroy {
     photoUrl: new FormControl('')
   });
 
-  constructor(private store: Store<any>, private authService: AuthService, private readonly userService: UserService) { }
+  constructor(private authService: AuthService, private readonly userService: UserService) { }
 
   ngOnInit() {
-    this.store.select(user).pipe(
-      filter(user => user !== undefined),
-      map(user => {
-        this.user = user;
-      })
-    ).subscribe();
-
+    // this.store.select(user).pipe(
+    //   filter(user => user !== undefined),
+    //   map(user => {
+    //     this.user = user;
+    //   })
+    // ).subscribe();
 
     this.userSubscription = this.authService.user$.pipe(
       switchMap(user => {

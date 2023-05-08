@@ -20,7 +20,6 @@ export class EditProfileModalComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log(this.userDetails, 'de');
   }
 
   onConfirm() {
