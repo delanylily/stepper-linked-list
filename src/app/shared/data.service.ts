@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { doc } from '@angular/fire/firestore';
 import { getFirestore } from 'firebase/firestore';
-import { Observable } from 'rxjs';
+import { from, Observable } from 'rxjs';
 import { Book } from '../models/book';
 
 @Injectable({
@@ -13,8 +13,10 @@ export class DataService {
     id: '',
     title: '',
     author: '',
+    userId: '',
     description: '',
-    image: ''
+    image: '',
+    availability: ''
   };
   constructor(private firestore: AngularFirestore) { }
 
@@ -22,9 +24,11 @@ export class DataService {
 
   addBookWithId(book: Book, userId: string) {
     this.bookObj.title = book.title;
+    this.bookObj.userId = userId;
     this.bookObj.author = book.author;
     this.bookObj.description = book.description !== undefined ? book.description : '';
     this.bookObj.image = book.image;
+    this.bookObj.availability = book.availability;
 
     let collectionRef = this.firestore.collection(`/users/${userId}/books`);
     return collectionRef.add(this.bookObj).then((docRef) => {
@@ -32,16 +36,29 @@ export class DataService {
     });
   }
 
+  addToSaved(bookId: string, userId: string) {
+    const savedBookId = { id: bookId };
+    let collectionRef = this.firestore.collection(`/users/${userId}/favourites`);
+    return collectionRef.add(savedBookId);
+  }
 
+  updateBookAvailability(userId: string, bookId: string, availability: string): Observable<any> {
+    let collectionRef = this.firestore.collection('users').doc(userId).collection('books').doc(bookId);
+    return from(collectionRef.update({ availability: availability }));
+  }
 
   getBooksDocument(userId) {
     return this.firestore.collection(`/users/${userId}/books`).snapshotChanges();
-
   }
 
   getUserBooks(userId: string) {
     return this.firestore.collection(`/users/${userId}/books`).valueChanges();
   }
+
+  getAllBooks(): Observable<Book[]> {
+    return this.firestore.collectionGroup<Book>('books').valueChanges();
+  }
+
 
   deleteUserBook(userId: string, bookId: string) {
     const itemRef = this.firestore.doc(`/users/${userId}/books/${bookId}`);
@@ -49,10 +66,6 @@ export class DataService {
   }
 
   getBooks() {
-    return this.firestore.collection('Books').snapshotChanges();
-  }
-
-  getAllBooks() {
     return this.firestore.collection('Books').snapshotChanges();
   }
 

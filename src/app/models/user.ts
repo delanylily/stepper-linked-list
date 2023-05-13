@@ -1,9 +1,14 @@
 export interface User {
-  userDetails?: any;
+  userDetails?: {
+    displayName: string,
+    language: string,
+    profileImg: string;
+  };
   uid: string;
   email: string;
   firstName?: string;
   lastName?: string;
   books?: any;
   profileImg?: any;
+
 }

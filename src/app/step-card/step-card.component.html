@@ -11,9 +11,17 @@
   <div class="details">
     <i class="fa fa-bookmark"></i>
     <div>
-      <span class="badge-main">Borrow</span>
-      <span class="badge-main">Lend</span>
+      <span *ngIf="step.value.data.availability === 'both' || step.value.data.availability === 'lend'"
+        class="badge-main">Borrow</span>
+      <span *ngIf="step.value.data.availability === 'both' || step.value.data.availability === 'swap'"
+        class="badge-main">Swap</span>
     </div>
   </div>
+  <div class="request-bar">
+    <div class="btn-group-2">
+      <button> <i class="fa fa-book"></i> Request</button>
+      <button (click)="saveBook(step.value.data)"> <i class="fa fa-heart-o"></i> Save</button>
+    </div>
+  </div>
+
 </div>
-<div>

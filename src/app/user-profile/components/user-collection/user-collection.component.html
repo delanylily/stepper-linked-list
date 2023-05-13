@@ -1,4 +1,24 @@
-<div class="user-collection">
+<!-- <div *ngIf="(data$ | async)?.books as books" class="user-collection">
+    <div *ngFor="let book of books; let i = index" class="card">
+    <div class="card-body details">
+      <img class="book-img" src="{{book.image}}" alt="">
+      <div class="card-text">
+        <p>{{book.title}}</p>
+        <p>Available to: </p>
+        <div class="btn-group-3">
+          <button [ngClass]="bookAvailability === 'lend' ? 'btn-highlight' : 'btn-default'" (click)="selectBookAvailability('lend')">Lend</button>
+          <button [ngClass]="bookAvailability === 'swap' ? 'btn-highlight' : 'btn-default'" (click)="selectBookAvailability('swap')">Swap</button>
+          <button [ngClass]="bookAvailability === 'both' ? 'btn-highlight' : 'btn-default'" (click)="selectBookAvailability('both')">Both</button>
+        </div>
+        <a (click)="onDeleteSelected(books[i])"><i class="fa fa-trash"></i> Remove item</a>
+      </div>
+    </div>
+  </div>
+</div>
+<generic-modal #modal (onConfirmed)="onDeleteBookConfirmation()" [viewModel]="modalContent"></generic-modal> -->
+
+
+<div *ngIf="(data$ | async)?.books as books" class="user-collection">
   <div *ngFor="let book of books; let i = index" class="card">
     <div class="card-body details">
       <img class="book-img" src="{{book.image}}" alt="">
@@ -6,9 +26,12 @@
         <p>{{book.title}}</p>
         <p>Available to: </p>
         <div class="btn-group-3">
-          <button class="btn btn-primary">Lend</button>
-          <button class="btn btn-primary">Swap</button>
-          <button class="btn btn-primary">Both</button>
+          <button [ngClass]="book?.availability === 'lend' ? 'btn-highlight' : 'btn-default'"
+            (click)="selectBookAvailability('lend', books[i].id)">Lend</button>
+          <button [ngClass]="book?.availability === 'swap' ? 'btn-highlight' : 'btn-default'"
+            (click)="selectBookAvailability('swap', books[i].id)">Swap</button>
+          <button [ngClass]="book?.availability === 'both' ? 'btn-highlight' : 'btn-default'"
+            (click)="selectBookAvailability('both', books[i].id)">Both</button>
         </div>
         <a (click)="onDeleteSelected(books[i])"><i class="fa fa-trash"></i> Remove item</a>
       </div>

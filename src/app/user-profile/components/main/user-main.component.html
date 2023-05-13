@@ -5,6 +5,6 @@
       <h5 title>My collection</h5>
       <button [routerLink]="['add-book']" class="btn btn-primary"><i class="fa fa-plus"></i></button>
     </div>
-    <user-collection *ngIf="userId" [userId]="userId"></user-collection>
+    <user-collection *ngIf="user?.uid" [userId]="user?.uid"></user-collection>
   </div>
 </frame>

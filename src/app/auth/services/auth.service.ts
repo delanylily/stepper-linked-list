@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { authState, Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider } from '@angular/fire/auth';
 import { from, Observable, of } from 'rxjs';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { getAuth } from 'firebase/auth';
 @Injectable({
   providedIn: 'root'
 })
@@ -10,6 +11,7 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 export class AuthService {
   currentUser$ = authState(this.auth);
   user$ = this.afAuth.authState;
+  authFire = getAuth();
 
   constructor(private router: Router, private readonly auth: Auth, private afAuth: AngularFireAuth) {
   }
@@ -26,8 +28,28 @@ export class AuthService {
     return from(signInWithEmailAndPassword(this.auth, email, password));
   }
 
+
+  // signIn(email: string, password: string): Observable<User> {
+  //   return new Observable(observer => {
+  //     this.afAuth.createUserWithEmailAndPassword(email, password)
+  //       .then(userCredential => {
+  //         const user: User = { // map user credential to your user model
+  //           uid: userCredential.user.uid,
+  //           email: userCredential.user.email,
+  //           // ... other user properties
+  //         };
+  //         observer.next(user);
+  //         observer.complete();
+  //       })
+  //       .catch(error => {
+  //         observer.error(error);
+  //       });
+  //   });
+  // }
+
+
   signUp(email: string, password: string): Observable<any> {
-    return from(createUserWithEmailAndPassword(this.auth, email, password));
+    return from(createUserWithEmailAndPassword(this.authFire, email, password));
   }
 
   forgotPassword(email: string): Observable<void> {

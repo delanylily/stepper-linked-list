@@ -12,7 +12,7 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./user-main.component.less']
 })
 export class UserMainComponent implements OnInit, OnDestroy {
-  userId: string;
+  // userId: string;
   // user: User;
   user: any;
   userSubscription: Subscription;

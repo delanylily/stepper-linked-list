@@ -22,7 +22,6 @@ export class StepperComponent implements OnInit, OnDestroy {
       this.linkedList.push({ active: this.activeStep >= index + 1, data: item });
     });
     this.steps = this.linkedList.toArray();
-
     this.activeStepSubscription = this.activeStep$.subscribe(step => {
       this.steps.map((item, index) => {
         this.activeStep = step;

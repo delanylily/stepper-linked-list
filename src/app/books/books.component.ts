@@ -1,7 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { combineLatest, map, Observable, Subscription, switchMap } from 'rxjs';
+import { AuthService } from '../auth/services/auth.service';
+import { DataService } from '../shared/data.service';
 
 @Component({
   selector: 'books',
@@ -9,22 +10,24 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./books.component.less']
 })
 export class BooksComponent implements OnInit, OnDestroy {
-  booksSubscription: Subscription;
   booksData: any;
+  booksDataSubscription: Subscription;
 
-  constructor(private router: Router, private angularFirestore: AngularFirestore) { }
+  constructor(private readonly authService: AuthService, private router: Router, private readonly dataService: DataService) { }
 
   ngOnInit() {
-    this.booksSubscription = this.angularFirestore.collection('Books').valueChanges().subscribe(data => {
-      this.booksData = data;
-    });
+    this.booksDataSubscription = combineLatest([this.authService.user$, this.dataService.getAllBooks()]).pipe(
+      map(([user, books]) => {
+        this.booksData = books.filter(book => book.userId !== user.uid);
+      })
+    ).subscribe();
   }
 
   addBook() {
-    this.router.navigateByUrl('/add-book')
+    this.router.navigateByUrl('/add-book');
   }
 
   ngOnDestroy(): void {
-    this.booksSubscription.unsubscribe();
+    this.booksDataSubscription.unsubscribe();
   }
 }

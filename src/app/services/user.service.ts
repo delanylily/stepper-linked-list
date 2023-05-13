@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { doc, docData, Firestore, getDoc, setDoc, updateDoc } from '@angular/fire/firestore';
+import { collectionData, doc, docData, Firestore, getDoc, setDoc, updateDoc } from '@angular/fire/firestore';
 import { updateProfile } from 'firebase/auth';
+import { collection, query } from 'firebase/firestore';
 import { from, Observable, of, switchMap } from 'rxjs';
 import { AuthService } from '../auth/services/auth.service';
 import { User } from '../models/user';
@@ -12,7 +13,6 @@ import { User } from '../models/user';
 })
 export class UserService {
   currentUser: any;
-
   constructor(private afAuth: AngularFireAuth, private firestore: Firestore, private authenticationService: AuthService, private angularFS: AngularFirestore) {
     this.currentUser = this.afAuth.currentUser;
   }
@@ -35,6 +35,12 @@ export class UserService {
 
   updateProfilePhotoUrl(photoUrl: string): Observable<any> {
     return from(updateProfile(this.currentUser, { photoURL: photoUrl }));
+  }
+
+  get getAllUsers$(): Observable<User[]> {
+    const ref = collection(this.firestore, 'users');
+    const queryAll = query(ref);
+    return collectionData(queryAll) as Observable<User[]>;
   }
 
   // updateUser(userId: string, fieldName: string, data: any): Observable<any> {

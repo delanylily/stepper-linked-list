@@ -17,9 +17,9 @@
       <div class="availability">
         <h3>Is this book available to lend or to swap?</h3>
         <div class="btn-group-3">
-          <button>Lend</button>
-          <button>Swap</button>
-          <button>Both</button>
+          <button [ngClass]="bookAvailability === 'lend' ? 'btn-highlight' : 'btn-default'" (click)="selectBookAvailability('lend')">Lend</button>
+          <button [ngClass]="bookAvailability === 'swap' ? 'btn-highlight' : 'btn-default'" (click)="selectBookAvailability('swap')">Swap</button>
+          <button [ngClass]="bookAvailability === 'both' ? 'btn-highlight' : 'btn-default'" (click)="selectBookAvailability('both')">Both</button>
         </div>
         <p><i class="fa fa-map-pin"></i> Valencia</p>
       </div>

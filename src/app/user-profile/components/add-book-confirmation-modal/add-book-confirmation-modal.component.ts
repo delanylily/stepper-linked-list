@@ -9,18 +9,24 @@ import { Book } from 'src/app/models/book';
 export class AddBookConfirmationModalComponent implements OnInit {
   isOpen: boolean = false;
   @Input() selectedBook: Book;
-  @Output() saveBook: EventEmitter<null> = new EventEmitter<null>();
+  bookAvailability: string;
+  @Output() saveBook: EventEmitter<string> = new EventEmitter<string>();
   constructor() { }
 
   ngOnInit() {
+    this.bookAvailability = 'both';
   }
 
   toggleModal() {
     this.isOpen = !this.isOpen;
   }
 
+  selectBookAvailability(event: string) {
+    this.bookAvailability = event;
+  }
+
   onSave() {
-    this.saveBook.emit();
+    this.saveBook.emit(this.bookAvailability);
     this.isOpen = false;
   }
 }

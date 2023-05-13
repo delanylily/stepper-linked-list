@@ -33,7 +33,7 @@ export class RegisterComponent implements OnInit {
       .pipe(
         switchMap(({ user: { uid } }) => this.userService.addUser({ uid, email }))
       ).subscribe(() => {
-        alert('Registration Successful, Please verify email');
+        alert('Registration Successful, Please login');
         this.router.navigate(['/auth']);
       });
     // this.auth.signUp(this.email, this.password).pipe(
