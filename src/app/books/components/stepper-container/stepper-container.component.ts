@@ -1,7 +1,7 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { map, Subject } from 'rxjs';
-import { DoubleLinkedList } from '../models/linked-list';
+import { DoubleLinkedList } from 'src/app/models/linked-list';
 @Component({
   selector: 'stepper-container',
   templateUrl: './stepper-container.component.html',

@@ -2,10 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
-import { StepperComponent } from './stepper-container/stepper-container.component';
-import { StepComponent } from './step/step.component';
 import { HttpClientModule } from '@angular/common/http';
-import { StepCardComponent } from './step-card/step-card.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AngularFireModule } from '@angular/fire/compat';
 import { environment } from 'src/environments/environment';
@@ -20,7 +17,6 @@ import { getStorage, provideStorage } from '@angular/fire/storage';
 import { getFirestore, doc, getDoc } from 'firebase/firestore';
 
 import { HotToastModule } from '@ngneat/hot-toast';
-import { BooksComponent } from './books/books.component';
 import { InboxComponent } from './inbox/inbox.component';
 import { FrameModule } from './frame/frame.module';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
@@ -29,11 +25,7 @@ import { UserProfileModule } from './user-profile/user-profile.module';
 @NgModule({
   declarations: [
     AppComponent,
-    StepperComponent,
     HomeComponent,
-    StepComponent,
-    StepCardComponent,
-    BooksComponent,
     InboxComponent,
   ],
   imports: [

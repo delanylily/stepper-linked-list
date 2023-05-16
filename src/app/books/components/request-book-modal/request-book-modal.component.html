@@ -1,0 +1,24 @@
+<div *ngIf="viewModel" class="modal" [ngClass]="{'open': isOpen}">
+  <div class="modal-content">
+    <i (click)="toggleModal()" class="fa fa-close"></i>
+    <ng-container *ngIf="!matchDetails else successMatch">
+      <div class="modal-info">
+        <p>This book is available to {{availabilityText}}, continue?</p>
+        <div class="buttons">
+          <button (click)="onConfirm()">Request</button>
+          <button (click)="toggleModal()">Cancel</button>
+        </div>
+      </div>
+    </ng-container>
+    <ng-template #successMatch>
+      <div class="img-grid">
+        <img src="{{matchDetails?.userBook?.image}}" alt="">
+        <img src="{{matchDetails?.requestedBook?.image}}" alt="">
+      </div>
+      <i class="fa fa-heart"></i>
+      <h2>It's a match!</h2>
+      <p>The owner of this book has requested your book "{{matchDetails?.userBook?.title}}"</p>
+      <button (click)="messageOwner()">Message book owner</button>
+    </ng-template>
+  </div>
+</div>

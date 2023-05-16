@@ -9,7 +9,9 @@ export class BooksService {
   constructor(private readonly http: HttpClient) { }
 
   getBooks(query: string) {
-    return this.http.get(`https://www.googleapis.com/books/v1/volumes?q=${query}`)
+    return this.http.get(`https://www.googleapis.com/books/v1/volumes?q=${query}`);
   }
+
+
 }
 

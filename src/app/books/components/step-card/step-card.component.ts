@@ -1,8 +1,9 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { HotToastService } from '@ngneat/hot-toast';
 import { map, Subscription } from 'rxjs';
-import { AuthService } from '../auth/services/auth.service';
-import { DataService } from '../shared/data.service';
+import { AuthService } from '../../../auth/services/auth.service';
+import { DataService } from '../../../shared/data.service';
+import { RequestBookModalComponent } from '../request-book-modal/request-book-modal.component';
 
 @Component({
   selector: 'step-card',
@@ -11,11 +12,19 @@ import { DataService } from '../shared/data.service';
 })
 export class StepCardComponent implements OnInit, OnDestroy {
   @Input() step: any;
+  @ViewChild('modal') modal: RequestBookModalComponent;
+  userId: string;
   bookSaveSubscription: Subscription;
+  userSubscription: Subscription;
 
   constructor(private readonly dataService: DataService, private authService: AuthService, private readonly toastrService: HotToastService) { }
 
   ngOnInit() {
+    this.userSubscription = this.authService.user$.pipe(
+      map(user => {
+        this.userId = user.uid;
+      })
+    ).subscribe();
   }
 
   setCurrentActive() {
@@ -27,16 +36,17 @@ export class StepCardComponent implements OnInit, OnDestroy {
   }
 
   saveBook(book) {
-    this.bookSaveSubscription = this.authService.currentUser$.pipe(
-      map(user => {
-        this.dataService.addToSaved(book.id, user.uid);
-      })
-    ).subscribe(() => {
+    this.bookSaveSubscription = this.dataService.addToSaved(this.userId, book.id, book.userId).subscribe(() => {
       this.toastrService.success(`Book saved to your favourites!`);
     }, () => this.toastrService.error('Save unsuccessful'));
   }
 
+  request() {
+    this.modal.toggleModal();
+  }
+
   ngOnDestroy(): void {
+    this.userSubscription.unsubscribe();
     if (this.bookSaveSubscription) {
       this.bookSaveSubscription.unsubscribe();
     }

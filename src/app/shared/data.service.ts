@@ -36,10 +36,18 @@ export class DataService {
     });
   }
 
-  addToSaved(bookId: string, userId: string) {
-    const savedBookId = { id: bookId };
+  addToSaved(userId: string, bookId: string, bookOwnerId: string): Observable<any> {
+    const savedBook = { bookId: bookId, bookOwnerId: bookOwnerId };
     let collectionRef = this.firestore.collection(`/users/${userId}/favourites`);
-    return collectionRef.add(savedBookId);
+    return from(collectionRef.add(savedBook));
+  }
+
+  getUserBook(userId: string, bookId: string): Observable<any> {
+    return this.firestore.collection(`/users/${userId}/books`).doc(bookId).valueChanges();
+  }
+
+  getUserFavourites(userId: string): Observable<any> {
+    return this.firestore.collection(`/users/${userId}/favourites`).valueChanges();
   }
 
   updateBookAvailability(userId: string, bookId: string, availability: string): Observable<any> {

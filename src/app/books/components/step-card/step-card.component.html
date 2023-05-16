@@ -19,9 +19,9 @@
   </div>
   <div class="request-bar">
     <div class="btn-group-2">
-      <button> <i class="fa fa-book"></i> Request</button>
+      <button (click)="request()"> <i class="fa fa-book"></i> Request</button>
       <button (click)="saveBook(step.value.data)"> <i class="fa fa-heart-o"></i> Save</button>
     </div>
   </div>
-
 </div>
+<request-book-modal #modal [viewModel]="{book: step.value.data, user: userId }"></request-book-modal>

@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { combineLatest, map, Observable, Subscription, switchMap } from 'rxjs';
-import { AuthService } from '../auth/services/auth.service';
-import { DataService } from '../shared/data.service';
+import { AuthService } from 'src/app/auth/services/auth.service';
+import { DataService } from 'src/app/shared/data.service';
 
 @Component({
   selector: 'books',
