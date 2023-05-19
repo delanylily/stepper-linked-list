@@ -9,10 +9,17 @@ import { Router } from '@angular/router';
   styleUrls: ['./header.component.less']
 })
 export class HeaderComponent implements OnInit {
-
+  menuItemSelected: string;
   constructor(private auth: AuthService, private router: Router, private toastr: HotToastService) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.menuItemSelected = 'home';
+  }
+
+  onNavigate(item) {
+    this.router.navigateByUrl(`/${item}`);
+    this.menuItemSelected = item;
+  }
 
   logout() {
     // this.auth.logout();

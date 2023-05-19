@@ -43,12 +43,6 @@ export class UserService {
     return collectionData(queryAll) as Observable<User[]>;
   }
 
-  // updateUser(userId: string, fieldName: string, data: any): Observable<any> {
-  //   const ref = doc(this.firestore, 'users', userId);
-  //   return from(updateDoc(ref, { [fieldName]: data }));
-  // }
-
-
   updateUser(userId: string, userDetails: any): Observable<any> {
     const ref = doc(this.firestore, 'users', userId);
     return from(updateDoc(ref, { userDetails }));

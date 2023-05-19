@@ -18,7 +18,10 @@
       <i class="fa fa-heart"></i>
       <h2>It's a match!</h2>
       <p>The owner of this book has requested your book "{{matchDetails?.userBook?.title}}"</p>
-      <button (click)="messageOwner()">Message book owner</button>
+      <div class="btn-group btn-2">
+        <button (click)="messageOwner()">Message book owner</button>
+        <button (click)="viewCollection()">View Owner's collection</button>
+      </div>
     </ng-template>
   </div>
 </div>

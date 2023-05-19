@@ -36,10 +36,10 @@ export class DataService {
     });
   }
 
-  addToSaved(userId: string, bookId: string, bookOwnerId: string): Observable<any> {
-    const savedBook = { bookId: bookId, bookOwnerId: bookOwnerId };
+  addToSaved(userId: string, book: Book): Observable<any> {
+    // const savedBook = { bookId: bookId, bookOwnerId: bookOwnerId };
     let collectionRef = this.firestore.collection(`/users/${userId}/favourites`);
-    return from(collectionRef.add(savedBook));
+    return from(collectionRef.add(book));
   }
 
   getUserBook(userId: string, bookId: string): Observable<any> {

@@ -36,7 +36,7 @@ export class StepCardComponent implements OnInit, OnDestroy {
   }
 
   saveBook(book) {
-    this.bookSaveSubscription = this.dataService.addToSaved(this.userId, book.id, book.userId).subscribe(() => {
+    this.bookSaveSubscription = this.dataService.addToSaved(this.userId, book).subscribe(() => {
       this.toastrService.success(`Book saved to your favourites!`);
     }, () => this.toastrService.error('Save unsuccessful'));
   }

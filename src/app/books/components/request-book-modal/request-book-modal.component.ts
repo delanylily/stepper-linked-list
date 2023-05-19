@@ -8,7 +8,7 @@ import { BookMatchDetails } from '../../models/matchDetails';
 @Component({
   selector: 'request-book-modal',
   templateUrl: './request-book-modal.component.html',
-  styleUrls: ['./request-book-modal.component.less']
+  styleUrls: ['./request-book-modal.component.less', '../../../../assets/styles/buttons.less']
 })
 export class RequestBookModalComponent implements OnInit, OnDestroy {
   @Input() viewModel: any;
@@ -59,6 +59,11 @@ export class RequestBookModalComponent implements OnInit, OnDestroy {
 
   messageOwner() {
     this.router.navigate(['/inbox']);
+  }
+
+  viewCollection() {
+    console.log(this.matchDetails.requestedBook, 'req');
+    this.router.navigate(['/user', this.matchDetails.requestedBook.userId]);
   }
 
   toggleModal() {

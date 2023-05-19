@@ -1,0 +1,22 @@
+<frame>
+  <div body>
+    <i [routerLink]="['../']" class="fa fa-solid fa-chevron-left"></i>
+    <ng-container *ngIf="(data$ | async) as data">
+      <div class="user-details">
+        <div class="user-img">
+          <img src="{{data.user.profileImg}}" alt="">
+        </div>
+        <div class="details">
+          <p>Name: {{data.user.userDetails.displayName}}</p>
+          <p> Languages: {{data.user.userDetails.language}}</p>
+          <button>Message</button>
+        </div>
+      </div>
+      <h5>Collection</h5>
+      <div class="collection">
+        <book-card (bookDetails)="onViewSummary($event)" *ngFor="let book of data.books" [bookVM]="book"></book-card>
+      </div>
+    </ng-container>
+  </div>
+</frame>
+<book-description-modal [bookSummaryDetails]="bookSummaryDetails" #modal></book-description-modal>

@@ -9,7 +9,8 @@ const routes = [
   { path: 'inbox', component: InboxComponent },
   { path: 'books', loadChildren: () => import('./books/books.module').then(m => m.BooksModule) },
   { path: 'user-profile', loadChildren: () => import('./user-profile/user-profile.module').then(m => m.UserProfileModule) },
-  { path: 'auth', loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule) }
+  { path: 'auth', loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule) },
+  { path: 'user/:userId', loadChildren: () => import('./user/user.module').then(m => m.UserModule) }
 ];
 
 @NgModule({

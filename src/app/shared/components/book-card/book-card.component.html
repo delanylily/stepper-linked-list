@@ -1,0 +1,25 @@
+<div *ngIf="bookVM" class="book-card">
+  <img class="book-img" src="{{bookVM.image}}" alt="">
+  <div class="details">
+    <h6>{{bookVM.title}}</h6>
+    <p class="author">{{bookVM.author}}</p>
+    <div class="info">
+      <i class="fa fa-bookmark"></i>
+      <div>
+        <span *ngIf="bookVM.availability === 'both' || bookVM.availability === 'lend'" class="badge-main">Borrow</span>
+        <span *ngIf="bookVM.availability === 'both' || bookVM.availability === 'swap'" class="badge-main">Swap</span>
+      </div>
+    </div>
+    <div class="info">
+      <i class="fa fa-info-circle"></i>
+      <a (click)="viewDetails({title: bookVM.title, author: bookVM.author, description: bookVM.description})">Book
+        summary</a>
+    </div>
+    <div class="request-bar">
+      <div class="btn-group-2">
+        <button> <i class="fa fa-book"></i> Request</button>
+        <button> <i class="fa fa-heart-o"></i> Save</button>
+      </div>
+    </div>
+  </div>
+</div>

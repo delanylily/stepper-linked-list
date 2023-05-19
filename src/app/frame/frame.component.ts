@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'frame',
+  styleUrls: ['./frame.component.less'],
   template: `
  <div class="wrapper">
   <header></header>
