@@ -38,7 +38,10 @@ export class UserMainComponent implements OnInit, OnDestroy {
     this.userSubscription = this.authService.user$.pipe(
       switchMap(user => {
         return this.userService.getUser(user.uid).pipe(
-          tap(user => this.user = user)
+          tap(user => {
+            this.user = user;
+            console.log(this.user);
+          })
         );
       })
     ).subscribe();

@@ -17,7 +17,7 @@ export class UserService {
     this.currentUser = this.afAuth.currentUser;
   }
 
-  getCurrentUser$(): Observable<User | null> {
+  get currentUserProfile$(): Observable<User | null> {
     return this.authenticationService.currentUser$.pipe(
       switchMap(user => {
         if (!user?.uid) {
@@ -29,6 +29,18 @@ export class UserService {
     );
   }
 
+  // getCurrentUser$(): Observable<User | null> {
+  //   return this.authenticationService.currentUser$.pipe(
+  //     switchMap(user => {
+  //       if (!user?.uid) {
+  //         return of(null);
+  //       }
+  //       const ref = doc(this.firestore, 'users', user?.uid);
+  //       return docData(ref) as Observable<User>;
+  //     })
+  //   );
+  // }
+
   getUser(userId: string) {
     return this.angularFS.doc<User>(`users/${userId}`).valueChanges();
   }
@@ -37,7 +49,7 @@ export class UserService {
     return from(updateProfile(this.currentUser, { photoURL: photoUrl }));
   }
 
-  get getAllUsers$(): Observable<User[]> {
+  get allUsers$(): Observable<User[]> {
     const ref = collection(this.firestore, 'users');
     const queryAll = query(ref);
     return collectionData(queryAll) as Observable<User[]>;

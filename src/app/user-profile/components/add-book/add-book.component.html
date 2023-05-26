@@ -1,11 +1,9 @@
-<frame>
-  <div body class="container">
+<div class="search-container">
+  <div class="back">
     <i [routerLink]="['../']" class="fa fa-solid fa-chevron-left"></i>
-    <h1>Search book</h1>
-    <search-book></search-book>
-    <div class="user-books">
-      <user-books></user-books>
-    </div>
-    <button [routerLink]="['/user-details']">User Profile</button>
   </div>
-</frame>
+  <div class="search-content">
+    <h6>Search book</h6>
+    <search-book></search-book>
+  </div>
+</div>

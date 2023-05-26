@@ -1,24 +1,22 @@
-<div class="row">
-  <div class="col-md-12">
+<div class="search-container">
+  <div class="search-heading">
     <input (input)="eventHandler($event.target.value)" type="text" placeholder="Search book...">
+    <button [disabled]="!selectedBook" (click)="modal.toggleModal()" class="btn btn-primary">Add book to list</button>
   </div>
-</div>
-<div class="row">
-  <div class="col-md-12">
-    <!-- <button [disabled]="!toggleBook" (click)="addBook()" class="btn btn-primary">Add book to list</button> -->
-    <button [disabled]="!toggleBook" (click)="modal.toggleModal()" class="btn btn-primary">Add book to list</button>
-    <div class="book-container">
-      <div [ngClass]="{'book-selected' : toggleBook && index === i}" (click)="bookSelected(item, i)" class="book-item"
-        *ngFor="let item of books; index as i">
-        <img src={{item.image}}>
-        <div class="body">
-          <h5 class="card-title">{{item.title}}</h5>
-          <h6 class="card-subtitle mb-2 text-muted">{{item.author}}</h6>
-          <p class="card-text">{{item.subtitle}}</p>
-        </div>
+  <div *ngIf="loading" class="spinner">
+    <img class="spinner-gif" src="../../../../assets/icons/spinner.gif" alt="">
+  </div>
+  <div class="book-container">
+    <div [ngClass]="{'book-selected' : toggleBook && index === i}" (click)="bookSelected(item, i)" class="book-item"
+      *ngFor="let item of books; index as i">
+      <img src={{item.image}}>
+      <div class="body">
+        <h5 class="card-title">{{item.title}}</h5>
+        <h6 class="card-subtitle mb-2 text-muted">{{item.author}}</h6>
+        <p class="card-text">{{item.subtitle}}</p>
       </div>
     </div>
   </div>
 </div>
-
-<add-book-confirmation-modal (saveBook)="onBookSaved($event)" [selectedBook]="selectedBook" #modal></add-book-confirmation-modal>
+<add-book-confirmation-modal (saveBook)="onBookSaved($event)" [selectedBook]="selectedBook"
+  #modal></add-book-confirmation-modal>

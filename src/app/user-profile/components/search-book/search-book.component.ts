@@ -20,12 +20,14 @@ export class SearchBookComponent implements OnInit {
   toggleBook: boolean = false;
   index: any;
   myBooks = [];
+  loading: boolean = false;
 
   constructor(private readonly bookService: BooksService, private readonly dataService: DataService, private authService: AuthService, private toastr: HotToastService) { }
 
   ngOnInit() {
-    this.searchInput.pipe(debounceTime(2000)).subscribe((input) => {
-      this.getBooks(input);
+    this.searchInput.pipe(debounceTime(1000)).subscribe((input) => {
+      this.loading = true;
+      input.length ? this.getBooks(input) : this.loading = false;
     });
   }
 
@@ -51,6 +53,7 @@ export class SearchBookComponent implements OnInit {
         if (book.volumeInfo?.imageLinks) {
           this.book = new Book(book.volumeInfo);
           this.books.push(this.book);
+          this.loading = false;
         }
       });
     })).subscribe();

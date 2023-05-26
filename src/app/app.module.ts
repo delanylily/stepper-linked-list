@@ -17,16 +17,15 @@ import { getStorage, provideStorage } from '@angular/fire/storage';
 import { getFirestore, doc, getDoc } from 'firebase/firestore';
 
 import { HotToastModule } from '@ngneat/hot-toast';
-import { InboxComponent } from './inbox/inbox.component';
 import { FrameModule } from './frame/frame.module';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { UserProfileModule } from './user-profile/user-profile.module';
+
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    InboxComponent,
   ],
   imports: [
     BrowserModule,
@@ -34,6 +33,7 @@ import { UserProfileModule } from './user-profile/user-profile.module';
     AuthModule,
     FrameModule,
     UserProfileModule,
+
     AppRoutingModule,
     AngularFireAuthModule,
     AngularFireStorageModule,
