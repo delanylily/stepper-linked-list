@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { combineLatest, map, Observable } from 'rxjs';
@@ -17,7 +18,7 @@ export class UserComponent implements OnInit {
   data$: Observable<any>;
   bookSummaryDetails: any;
   @ViewChild('modal') bookDescriptionModal: BookDescriptionModalComponent;
-  constructor(private activatedRoute: ActivatedRoute, private readonly userService: UserService, private readonly dataService: DataService) { }
+  constructor(private location: Location, private activatedRoute: ActivatedRoute, private readonly userService: UserService, private readonly dataService: DataService) { }
 
   ngOnInit() {
     this.userId = this.activatedRoute.snapshot.params['userId'];
@@ -31,7 +32,11 @@ export class UserComponent implements OnInit {
     );
   }
 
-  onViewSummary(event) {
+  goBack(): void {
+    this.location.back();
+  }
+
+  onViewSummary(event): void {
     this.bookSummaryDetails = event;
     this.bookDescriptionModal.toggleModal();
   }

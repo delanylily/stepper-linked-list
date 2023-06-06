@@ -12,7 +12,7 @@ export class EditProfileModalComponent implements OnInit {
   isOpen: boolean = false;
   fileData: File = null;
   userForm = new FormGroup({
-    profileImg: new FormControl(''),
+    photoUrl: new FormControl(''),
     displayName: new FormControl(''),
     language: new FormControl('')
   });
@@ -20,6 +20,11 @@ export class EditProfileModalComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    this.userForm = new FormGroup({
+      photoUrl: new FormControl(this.userDetails.photoURL),
+      displayName: new FormControl(this.userDetails.displayName),
+      language: new FormControl('')
+    });
   }
 
   onConfirm() {

@@ -1,10 +1,6 @@
 export interface User {
-  userDetails?: {
-    displayName: string,
-    language: string,
-    profileImg: string;
-  };
   uid: string;
+  language?: string;
   email: string;
   displayName?: string;
   photoURL?: string;

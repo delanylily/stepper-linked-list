@@ -3,10 +3,27 @@
     <div *ngIf="user$ | async as user" class="welcome">
       <h6>Welcome back {{user.userDetails?.displayName}}, here are your new matches</h6>
     </div>
+    <div *ngIf="matches" class="matches">
+      <div *ngFor="let match of matches" class="match-card">
+        <div class="match-details">
+          <div class="book-match">
+            <img src="{{match.userBook.image}}" alt="">
+          </div>
+          <i class="fa fa-heart"></i>
+          <div class="book-match">
+            <img src="{{match.matchBook.image}}" alt="">
+          </div>
+        </div>
+        <div class="btn-group btn-2">
+          <button>Message user</button>
+          <button [routerLink]="['/user', match.matchBook.userId]">View user's collection</button>
+        </div>
+      </div>
+    </div>
     <h6>favourites</h6>
-    <div class="book-grid">
+    <div *ngIf="bookList.length" class="book-grid">
       <div *ngFor="let book of bookList" class="book-card">
-        <img src="{{book.image}}" alt="">
+        <img src="{{book?.image}}" alt="">
         <div class="details">
           <div class="title">
             <label>Title</label>
@@ -14,7 +31,7 @@
           </div>
           <div class="author">
             <label>Author</label>
-            <p>{{book.author}}</p>
+            <p>{{book?.author}}</p>
           </div>
           <div class="availability">
             <label>Availability</label>

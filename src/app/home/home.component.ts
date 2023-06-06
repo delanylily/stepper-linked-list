@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from 'firebase/auth';
-import { map, Subscription } from 'rxjs';
+import { combineLatest, concatMap, forkJoin, map, mergeMap, Observable, Subscription, take, tap, toArray } from 'rxjs';
 import { AuthService } from '../auth/services/auth.service';
 import { Book } from '../models/book';
 import { UserService } from '../services/user.service';
@@ -10,7 +10,7 @@ import { DataService } from '../shared/data.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.less']
+  styleUrls: ['./home.component.less', '../../assets/styles/buttons.less']
 })
 export class HomeComponent implements OnInit, OnDestroy {
   bookList: Book[] = [];
@@ -19,7 +19,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   userSubscription: Subscription;
   userId: string;
   user$: any;
-
+  bookDetailsSubscription: Subscription;
+  matches;
   constructor(private readonly router: Router, private readonly authService: AuthService, private readonly dataService: DataService, private userService: UserService) { }
 
   ngOnInit() {
@@ -28,14 +29,34 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.userId = user.uid;
         this.user$ = this.userService.getUser(this.userId);
         this.getUserFavourites();
+        this.getUserMatches();
       })
     ).subscribe();
   }
 
-  getUserFavourites() {
-    this.favouritesSubscription = this.dataService.getUserFavourites(this.userId).subscribe(books => {
-      this.bookList = books;
+  getUserMatches() {
+    this.dataService.getUserMatches(this.userId).subscribe(matches => {
+      this.matches = matches;
     });
+  }
+
+  getUserFavourites() {
+    this.favouritesSubscription = this.dataService.getUserFavourites(this.userId).pipe(
+      map(fav => {
+        fav.map(book => {
+          this.getBookDetails(book);
+        });
+      }),
+    ).subscribe();
+  }
+
+  getBookDetails(book) {
+    this.bookDetailsSubscription = this.dataService.getUserBook(book.userId, book.id).pipe(
+      map(book => {
+        this.bookList.push(book);
+      }),
+      take(1)
+    ).subscribe();
   }
 
   navigateToUserProfile(bookOwnerId): void {
@@ -44,7 +65,11 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.userSubscription.unsubscribe();
-    this.favouritesSubscription.unsubscribe();
+    if (this.favouritesSubscription) {
+      this.favouritesSubscription.unsubscribe();
+    }
+    if (this.bookDetailsSubscription) {
+      this.bookDetailsSubscription.unsubscribe();
+    }
   }
-
 }

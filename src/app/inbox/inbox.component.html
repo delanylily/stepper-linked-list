@@ -1,84 +1,29 @@
 <frame>
-  <!-- <div body class="container">
-    <div class="inbox-container">
-      <div class="chat-list">
-        <div class="form-group search-input">
-          <input class="form-control" placeholder="Search for users..." type="text">
-        </div>
-        <div *ngIf="users$ | async as users">
-          <ul *ngFor="let user of users" (click)="createChat(user)">
-            <li>{{user?.userDetails?.displayName}}</li>
-          </ul>
-        </div>
-        <div class="list">
-
-
-          <div (click)="onChatSelected(chat)" *ngFor="let chat of myChats$ | async" class="form-check">
-            <input class="form-check-input" type="checkbox" value={{chat.id}} id="flexCheckDefault">
-            <img class="user-img" [src]="chat.photoUrl ? chat.photoUrl : 'assets/icons/image-placeholder.png' " alt="">
-            <label class="form-check-label" for="flexCheckDefault">
-              {{chat.chatName}}
-            </label>
-            <span>{{chat.lastMessageDate}}</span>
-            <p>{{chat.lastMessage}}</p>
-          </div>
-        </div>
-      </div>
-      <div class="messages">
-        <div class="messages-header" *ngIf="selectedChat else noMessages">
-          <img class="user-img"
-            [src]="selectedChat.chatPic ?  selectedChat.chatPic : 'assets/icons/image-placeholder.png'" alt="">
-          <h2>{{selectedChat.chatName}}</h2>
-        </div>
-        <ng-template #noMessages>
-          <div class="messages-header">
-            <h2>Messages</h2>
-          </div>
-        </ng-template>
-        <div class="chat-area">
-          <div *ngFor="let message of messages$ | async">
-            {{message.text}}
-          </div>
-        </div>
-        <div class="input-area">
-          <input (keydown.enter)="sendMessage(inputField)" #inputField [(ngModel)]="userInput"
-            placeholder="Enter your message..." type="text">
-          <button (click)="sendMessage(inputField)">Send</button>
-        </div>
-      </div>
-    </div>
-  </div> -->
-
-
-
-
-
   <div body class="container">
     <div class="chat-list mat-elevation-z5">
       <div class="search-input">
-        <mat-form-field>
-          <input matInput placeholder="Search for users and start a chat" [matAutocomplete]="users"
-            [formControl]="searchControl" />
-        </mat-form-field>
-        <mat-autocomplete #users="matAutocomplete">
-          <mat-option *ngFor="let user of users$ | async" [value]="''" (click)="createChat(user)">
-            {{ user.displayName }}
-          </mat-option>
-        </mat-autocomplete>
       </div>
+      <select (change)="onUserSelected($event.target.value)" class="form-select">
+        <option selected>Select user</option>
+        <option *ngFor="let user of filteredUsers" [value]="user.uid">{{user.displayName}}
+        </option>
+      </select>
       <mat-selection-list [multiple]="false" [formControl]="chatListControl">
         <mat-divider></mat-divider>
-        <mat-list-option *ngFor="let chat of myChats$ | async" [value]="chat.id">
-          <img class="user-img" [src]="
-              chat.chatPic ? chat.chatPic : 'assets/icons/image-placeholder.png'
-            " />
-          <p mat-line class="chat-title">
-            <span class="chat-name">{{ chat.chatName }}</span><span class="chat-date">{{
-              chat.lastMessageDate | dateDisplay
-              }}</span>
-          </p>
-          <p mat-line>{{ chat.lastMessage }}</p>
-          <mat-divider></mat-divider>
+        <mat-list-option class="mat-option" *ngFor="let chat of myChats$ | async" [value]="chat.id">
+          <div class="chat-preview-container">
+            <div class="chat-preview">
+              <img class="user-img" [src]="chat.chatPic ? chat.chatPic : 'assets/icons/image-placeholder.png'" />
+              <div class="chat-preview-details">
+                <p class="chat-title">
+                  <span class="chat-name">{{ chat.chatName }}</span>
+                  <span class="chat-date">{{chat.lastMessageDate | dateDisplay}}</span>
+                </p>
+                <p>{{ chat.lastMessage }}</p>
+              </div>
+            </div>
+            <hr>
+          </div>
         </mat-list-option>
       </mat-selection-list>
     </div>
@@ -122,7 +67,4 @@
       </div>
     </div>
   </div>
-
-
-
 </frame>

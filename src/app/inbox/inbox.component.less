@@ -1,61 +1,44 @@
 @import '../../assets/styles/colors.less';
 
-// .inbox-container {
-//   display: grid;
-//   grid-template-columns: 30% 70%;
-//   height: 90vh;
-// }
+.user-img {
+  width: 60px;
+  height: 60px;
+}
 
-// .chat-list {
-//   margin: 15px;
-//   border-radius: 15px;
-//   background-color: @main-yellow;
-//   display: grid;
-//   grid-template-rows: auto auto;
-// }
+.chat-preview-container {
+  grid-template-rows: repeat(2, auto);
+}
 
-// .messages {
-//   margin: 15px;
-//   border-radius: 15px;
-//   background-color: @main-clear-blue;
-// }
-
-// .search-input {
-//   margin: 10px;
-// }
-
-// .profile-img {
-//   width: 50px;
-// }
-
-// .messages-header {
-//   display: grid;
-//   grid-template-columns: repeat(2, max-content);
-//   align-items: center;
-// }
-
-// .chat-area {
-//   height: calc(100vh - 270px);
-//   background: white;
-//   margin: 15px;
-// }
-
-// .input-area {
-//   display: grid;
-//   grid-template-columns: auto 100px;
-//   margin: 15px;
-// }
+.mdc-list-item.mdc-list-item--with-one-line {
+  height: auto;
+}
 
 
+.chat-preview {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  grid-column-gap: 15px;
+  justify-content: left;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  align-items: center;
+}
 
+.chat-title {
+  display: grid;
+  grid-template-columns: repeat(2, max-content);
+  grid-column-gap: 15px;
+  justify-content: space-around;
 
+  .chat-name {
+    font-weight: 500;
+  }
 
-
-
-
-
-
-
+  .chat-date {
+    font-size: 0.7rem;
+    color: rgba(0, 0, 0, 0.7)
+  }
+}
 
 .container {
   display: flex;
@@ -67,21 +50,21 @@
     background: #c5cae9;
     border-radius: 16px;
 
-    .chat-title {
+    // .chat-title {
 
-      display: flex;
-      justify-content: space-between;
+    //   display: flex;
+    //   justify-content: space-between;
 
-      .chat-name {
-        font-weight: 500;
-      }
+    //   .chat-name {
+    //     font-weight: 500;
+    //   }
 
-      .chat-date {
-        font-size: 0.7rem;
-        color: rgba(0, 0, 0, 0.7)
-      }
+    //   .chat-date {
+    //     font-size: 0.7rem;
+    //     color: rgba(0, 0, 0, 0.7)
+    //   }
 
-    }
+    // }
 
     .search-input {
       margin: 24px;

@@ -25,7 +25,7 @@ export class ChatsService {
             photoUrl: user?.photoURL ?? ''
           },
           {
-            displayName: otherUser?.userDetails?.displayName ?? '',
+            displayName: otherUser?.displayName ?? '',
             photoUrl: otherUser?.photoURL ?? ''
           },
         ]
@@ -43,7 +43,8 @@ export class ChatsService {
           where('userIds', 'array-contains', user?.uid)
         );
         return collectionData(myQuery, { idField: 'id' }).pipe(
-          map((chats: any) => this.addChatNameAndPic(user?.uid, chats))
+          map((chats: any) => this.addChatNameAndPic(user?.uid, chats)
+          )
         ) as Observable<Chat[]>;
       })
     );

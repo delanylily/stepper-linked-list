@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { map, Subscription } from 'rxjs';
+import { map, Subscription, take } from 'rxjs';
 import { Book } from 'src/app/models/book';
 import { DataService } from 'src/app/shared/data.service';
 import { BookMatchDetails } from '../../models/matchDetails';
@@ -39,22 +39,25 @@ export class RequestBookModalComponent implements OnInit, OnDestroy {
   onConfirm() {
     this.requestedBook = this.viewModel.book;
     const reqBookOwnerId = this.viewModel.book.userId;
-    this.userFavouritesSubscription = this.dataService.getUserFavourites(reqBookOwnerId).pipe(
-      map(favourites => {
-        const match = favourites.filter((fav: any) => fav.bookOwnerId === this.viewModel.user);
+    this.dataService.addToRequested(this.viewModel.user, this.viewModel.book).subscribe();
+    this.getUserRequests(reqBookOwnerId);
+  }
+
+  getUserRequests(reqBookOwnerId) {
+    this.dataService.getUserRequests(reqBookOwnerId).pipe(
+      map(requests => {
+        const match = requests.filter((match: any) => match.userId === this.viewModel.user);
         if (match.length) {
-          this.getBookMatchDetails(match[0]);
+          this.addToMatches(match[0]);
         }
       })
     ).subscribe();
   }
 
-  getBookMatchDetails(match) {
-    this.userBookSubscription = this.dataService.getUserBook(match.bookOwnerId, match.bookId).subscribe(book => {
-      const requestedBook = new BookMatchDetails(this.requestedBook);
-      const userBook = new BookMatchDetails(book);
-      this.matchDetails = { requestedBook, userBook };
-    });
+  addToMatches(book) {
+    this.matchDetails = { matchBook: this.requestedBook, userBook: book };
+    this.dataService.addToMatches(this.viewModel.user, this.matchDetails).subscribe();
+    this.dataService.addToMatches(this.requestedBook.userId, this.matchDetails).subscribe();
   }
 
   messageOwner() {
@@ -62,7 +65,6 @@ export class RequestBookModalComponent implements OnInit, OnDestroy {
   }
 
   viewCollection() {
-    console.log(this.matchDetails.requestedBook, 'req');
     this.router.navigate(['/user', this.matchDetails.requestedBook.userId]);
   }
 

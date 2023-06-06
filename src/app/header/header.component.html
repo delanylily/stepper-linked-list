@@ -1,24 +1,25 @@
 <nav class="main-nav">
   <a class="logo" href="/home">BookHive</a>
   <div class="menu">
-    <a [ngClass]="menuItemSelected === 'home' ? 'selected' : 'default'" (click)="onNavigate('home')" class="menu-item">
+    <a routerLink="/home" routerLinkActive="active" class="menu-item">
       <i class="fa fa-home"></i>
       <span>Home</span>
     </a>
-    <a [ngClass]="menuItemSelected === 'books' ? 'selected' : 'default'" (click)="onNavigate('books')"
-      class="menu-item">
+    <a routerLink="/books" routerLinkActive="active" class="menu-item">
       <i class="fa fa-book"></i>
       <span> Books</span>
     </a>
-    <a [ngClass]="menuItemSelected === 'inbox' ? 'selected' : 'default'" (click)="onNavigate('inbox')"
-      class="menu-item">
+    <a routerLink="/inbox" routerLinkActive="active" class="menu-item">
       <i class="fa fa-inbox"></i>
       <span>Inbox</span>
     </a>
-    <a [ngClass]="menuItemSelected === 'user-profile' ? 'selected' : 'default'" (click)="onNavigate('user-profile')"
-      class="menu-item">
+    <a (click)="toggleDropdown()" routerLinkActive="active" class="menu-item user-menu">
       <i class="fa fa-user"></i>
       <span>You</span>
+      <ul [class.show]="isDropdownOpen" class="dropdown-menu">
+        <li routerLink="/user-profile">Profile</li>
+        <li (click)="logout()">Log out</li>
+      </ul>
     </a>
   </div>
 </nav>

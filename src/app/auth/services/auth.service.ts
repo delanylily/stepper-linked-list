@@ -47,10 +47,13 @@ export class AuthService {
   //   });
   // }
 
-
-  signUp(email: string, password: string): Observable<any> {
+  signUp(displayName: string, email: string, password: string): Observable<any> {
     return from(createUserWithEmailAndPassword(this.authFire, email, password));
   }
+
+  // signUp(email: string, password: string): Observable<any> {
+  //   return from(createUserWithEmailAndPassword(this.authFire, email, password));
+  // }
 
   forgotPassword(email: string): Observable<void> {
     return from(this.afAuth.sendPasswordResetEmail(email));

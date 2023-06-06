@@ -4,7 +4,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { collectionData, doc, docData, Firestore, getDoc, setDoc, updateDoc } from '@angular/fire/firestore';
 import { updateProfile } from 'firebase/auth';
 import { collection, query } from 'firebase/firestore';
-import { from, Observable, of, switchMap } from 'rxjs';
+import { from, Observable, of, switchMap, throwError } from 'rxjs';
 import { AuthService } from '../auth/services/auth.service';
 import { User } from '../models/user';
 
@@ -45,20 +45,23 @@ export class UserService {
     return this.angularFS.doc<User>(`users/${userId}`).valueChanges();
   }
 
-  updateProfilePhotoUrl(photoUrl: string): Observable<any> {
-    return from(updateProfile(this.currentUser, { photoURL: photoUrl }));
-  }
-
   get allUsers$(): Observable<User[]> {
     const ref = collection(this.firestore, 'users');
     const queryAll = query(ref);
     return collectionData(queryAll) as Observable<User[]>;
   }
 
-  updateUser(userId: string, userDetails: any): Observable<any> {
+  // updateUser(userId: string, newDisplayName: string, newPhotoURL: string): Observable<any> {
+  //   const ref = doc(this.firestore, 'users', userId);
+  //   return from(updateDoc(ref, { displayName: newDisplayName, photoURL: newPhotoURL }));
+  // }
+
+  updateUser(userId: string, userForm: any): Observable<any> {
     const ref = doc(this.firestore, 'users', userId);
-    return from(updateDoc(ref, { userDetails }));
+    return from(updateDoc(ref, { displayName: userForm.displayName, photoURL: userForm.photoUrl }));
   }
+
+
 
   addUser(user: User): Observable<any> {
     const ref = doc(this.firestore, 'users', user?.uid);

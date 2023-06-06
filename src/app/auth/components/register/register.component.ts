@@ -13,6 +13,7 @@ import { AuthService } from '../../services/auth.service';
 export class RegisterComponent implements OnInit {
   email: string = '';
   password: string = '';
+  username: string = '';
 
   constructor(private auth: AuthService, private userService: UserService, private router: Router, private toastr: HotToastService) { }
 
@@ -20,6 +21,10 @@ export class RegisterComponent implements OnInit {
   }
 
   register() {
+    if (this.username === '') {
+      alert('Please enter username');
+      return;
+    }
     if (this.email === '') {
       alert('Please enter email');
       return;
@@ -29,19 +34,14 @@ export class RegisterComponent implements OnInit {
       return;
     }
     const email = this.email;
-    this.auth.signUp(this.email, this.password)
+    const displayName = this.username;
+    this.auth.signUp(this.username, this.email, this.password)
       .pipe(
-        switchMap(({ user: { uid } }) => this.userService.addUser({ uid, email }))
+        switchMap(({ user: { uid } }) => this.userService.addUser({ uid, email, displayName }))
       ).subscribe(() => {
         alert('Registration Successful, Please login');
         this.router.navigate(['/auth']);
       });
-    // this.auth.signUp(this.email, this.password).pipe(
-    //   switchMap(({ user: { uid } }) => this.userService.addUser({ uid: email, email: this.email }))
-    // ).subscribe(() => {
-    //   alert('Registration Successful, Please verify email');
-    //   this.router.navigate(['/login']);
-    // });
     this.email = '';
     this.password = '';
   }

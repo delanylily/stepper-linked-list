@@ -10,10 +10,11 @@ import { Router } from '@angular/router';
 })
 export class HeaderComponent implements OnInit {
   menuItemSelected: string;
+  isDropdownOpen = false;
+
   constructor(private auth: AuthService, private router: Router, private toastr: HotToastService) { }
 
   ngOnInit() {
-    this.menuItemSelected = 'home';
   }
 
   onNavigate(item) {
@@ -21,8 +22,11 @@ export class HeaderComponent implements OnInit {
     this.menuItemSelected = item;
   }
 
+  toggleDropdown(): void {
+    this.isDropdownOpen = !this.isDropdownOpen;
+  }
+
   logout() {
-    // this.auth.logout();
     this.auth.signOut().pipe(
       this.toastr.observe({
         success: 'Logout success',

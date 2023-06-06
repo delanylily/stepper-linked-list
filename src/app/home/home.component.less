@@ -6,10 +6,42 @@
 }
 
 .book-card {
-  background-color: @main-blue;
+  background-color: whitesmoke;
   display: grid;
   padding: 10px;
   align-items: center;
   grid-template-rows: auto;
   grid-template-columns: auto auto;
+}
+
+.matches {
+  background-color: white;
+  display: grid;
+  grid-template-rows: repeat(2, auto);
+  justify-content: center;
+  grid-row-gap: 15px;
+}
+
+.match-card {
+  display: grid;
+  grid-template-rows: repeat(2, auto);
+}
+
+.match-details {
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  align-items: center;
+  grid-column-gap: 10px;
+  justify-content: center;
+}
+
+.fa-heart {
+  font-size: 60px;
+}
+
+.book-match {
+
+  img {
+    width: 80px;
+  }
 }

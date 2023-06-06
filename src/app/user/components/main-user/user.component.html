@@ -1,6 +1,6 @@
 <frame>
   <div body>
-    <i [routerLink]="['../']" class="fa fa-solid fa-chevron-left"></i>
+    <i (click)="goBack()" class="fa fa-solid fa-chevron-left"></i>
     <ng-container *ngIf="(data$ | async) as data">
       <div class="user-details">
         <div class="user-img">

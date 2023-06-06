@@ -2,13 +2,15 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { doc } from '@angular/fire/firestore';
 import { getFirestore } from 'firebase/firestore';
-import { from, Observable } from 'rxjs';
+import { from, Observable, Subject } from 'rxjs';
 import { Book } from '../models/book';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
+  onFavouriteAdded = new Subject<null>();
+  onFavouriteAdded$ = this.onFavouriteAdded.asObservable();
   bookObj = {
     id: '',
     title: '',
@@ -20,7 +22,9 @@ export class DataService {
   };
   constructor(private firestore: AngularFirestore) { }
 
-
+  favouriteAdded() {
+    this.onFavouriteAdded.next(null);
+  }
 
   addBookWithId(book: Book, userId: string) {
     this.bookObj.title = book.title;
@@ -37,9 +41,22 @@ export class DataService {
   }
 
   addToSaved(userId: string, book: Book): Observable<any> {
-    // const savedBook = { bookId: bookId, bookOwnerId: bookOwnerId };
     let collectionRef = this.firestore.collection(`/users/${userId}/favourites`);
     return from(collectionRef.add(book));
+  }
+
+  addToMatches(userId: string, matchDetails: any): Observable<any> {
+    let collectionRef = this.firestore.collection(`/users/${userId}/matches`);
+    return from(collectionRef.add(matchDetails));
+  }
+
+  addToRequested(userId: string, requestedBook: any): Observable<any> {
+    let collectionRef = this.firestore.collection(`/users/${userId}/requests`);
+    return from(collectionRef.add(requestedBook));
+  }
+
+  getUserRequests(userId: string): Observable<any> {
+    return this.firestore.collection(`/users/${userId}/requests`).valueChanges();
   }
 
   getUserBook(userId: string, bookId: string): Observable<any> {
@@ -48,6 +65,10 @@ export class DataService {
 
   getUserFavourites(userId: string): Observable<any> {
     return this.firestore.collection(`/users/${userId}/favourites`).valueChanges();
+  }
+
+  getUserMatches(userId: string): Observable<any> {
+    return this.firestore.collection(`/users/${userId}/matches`).valueChanges();
   }
 
   updateBookAvailability(userId: string, bookId: string, availability: string): Observable<any> {

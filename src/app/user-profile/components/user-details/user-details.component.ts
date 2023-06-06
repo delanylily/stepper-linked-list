@@ -17,18 +17,11 @@ export class UserDetailsComponent implements OnInit {
   @ViewChild('modal') modal: GenericModalComponent;
   modalContent: { heading: string, message: string; };
   imageUrl: string;
-  userDetails: any;
   userForm: any;
 
   constructor(private userService: UserService, private toastr: HotToastService, private angularStorage: AngularFireStorage) { }
 
   ngOnInit() {
-    // this.store.select(user).pipe(
-    //   filter(user => user !== undefined),
-    // ).subscribe()
-    this.userDetails = this.user?.userDetails;
-    this.editingForm = false;
-    this.imageUrl = this.user.profileImg;
   }
 
   onEdit(): void {
@@ -47,8 +40,8 @@ export class UserDetailsComponent implements OnInit {
       const uploadTask = await this.angularStorage.upload(path, this.fileData);
       const url = await uploadTask.ref.getDownloadURL();
       this.imageUrl = url;
+      this.userForm.value.photoUrl = this.imageUrl;
     }
-    // this.store.dispatch(updateUser({ userId: this.user.uid, user: this.userForm.value }));
     this.userService.updateUser(this.user.uid, this.userForm.value).subscribe(res => {
       this.toastr.success('Your image has been upload successfully');
       location.reload();
