@@ -8,11 +8,11 @@ import { UserService } from '../services/user.service';
 import { DataService } from '../shared/data.service';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.less', '../../assets/styles/buttons.less']
+  selector: 'app-matches',
+  templateUrl: './matches.component.html',
+  styleUrls: ['./matches.component.less', '../../assets/styles/buttons.less']
 })
-export class HomeComponent implements OnInit, OnDestroy {
+export class MatchesComponent implements OnInit, OnDestroy {
   bookList: Book[] = [];
   data: any;
   favouritesSubscription: Subscription;

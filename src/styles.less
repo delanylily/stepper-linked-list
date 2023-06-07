@@ -1,4 +1,4 @@
-@import url('/src/assets/styles/colors.less');
+@import url('/src/assets/styles/style-variables.less');
 
 html,
 body {
@@ -8,6 +8,20 @@ body {
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+p {
+  color: @font-text;
+}
+
+h3 {
+  font-size: @lengthMd2;
+  color: @font-text;
+}
+
+h6 {
+  font-size: @lengthMd1;
+  color: @font-label;
 }
 
 .spinner {
@@ -51,6 +65,13 @@ body {
   background-color: aquamarine;
 }
 
+.book-img {
+  height: 185ox;
+  border-radius: 4px;
+  box-shadow: @box-shadow;
+  overflow: hidden;
+}
+
 .user-img {
   width: 100px;
   height: 100px;
@@ -71,7 +92,7 @@ body {
 }
 
 .badge-main {
-  background-color: @main-blue;
+  background-color: @color-secondary;
   font-size: 15px;
   border-radius: 6px;
   padding: 4px 12px;

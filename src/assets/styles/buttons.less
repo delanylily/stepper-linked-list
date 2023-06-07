@@ -1,8 +1,52 @@
+@import '../../assets/styles/style-variables.less';
+
+
 .btn-group {
   display: grid;
   grid-column-gap: 8px;
 
   &.btn-2 {
     grid-template-columns: repeat(2, auto);
+  }
+}
+
+.btn-main {
+  background-color: @color-primary;
+  border-radius: 20px;
+  height: 35px;
+  width: 140px;
+  display: grid;
+  grid-column-gap: 15px;
+  justify-content: center;
+  grid-template-columns: 10px auto;
+  align-items: center;
+  color: white;
+  outline: none;
+  border: none;
+  font-size: @lengthMd1;
+
+  &.outline {
+    background-color: white;
+    border: solid 1px @color-primary;
+    color: @color-primary;
+
+    & i {
+      color: @color-primary;
+    }
+
+    &:hover {
+      background-color: @color-primary;
+      color: white;
+
+      & i {
+        color: white;
+      }
+    }
+  }
+
+  & i {
+    color: white;
+    font-size: @lengthMd1;
+
   }
 }

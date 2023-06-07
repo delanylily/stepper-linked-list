@@ -12,6 +12,7 @@ import { DataService } from 'src/app/shared/data.service';
 export class BooksComponent implements OnInit, OnDestroy {
   booksData: any;
   booksDataSubscription: Subscription;
+  filterSubscription: Subscription;
   filteredBooks: any;
   loading: boolean;
 
@@ -19,7 +20,7 @@ export class BooksComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.loading = true;
-    combineLatest([this.authService.user$, this.dataService.getAllBooks()]).pipe(
+    this.filterSubscription = combineLatest([this.authService.user$, this.dataService.getAllBooks()]).pipe(
       map(([user, books]) => {
         return this.filterBooks(user, books);
       })
@@ -27,11 +28,12 @@ export class BooksComponent implements OnInit, OnDestroy {
   }
 
   filterBooks(user, books) {
-    this.booksDataSubscription = combineLatest([this.dataService.getUserFavourites(user.uid), this.dataService.getUserMatches(user.uid)]).pipe(
-      map(([favourites, matches]) => {
+    this.booksDataSubscription = combineLatest([this.dataService.getUserFavourites(user.uid), this.dataService.getUserMatches(user.uid), this.dataService.getUserRequests(user.uid)]).pipe(
+      map(([favourites, matches, requests]) => {
         const favoriteBookIds = favourites.map(favourite => favourite.id);
         const matchBookIds = matches.map(match => match.matchBook.id);
-        return books.filter(book => !favoriteBookIds.includes(book.id) && !matchBookIds.includes(book.id) && book.userId !== user.uid);
+        const requestIds = requests.map(request => request.id);
+        return books.filter(book => !favoriteBookIds.includes(book.id) && !matchBookIds.includes(book.id) && !requestIds.includes(book.id) && book.userId !== user.uid);
       }),
       tap(() => {
         this.loading = false;
@@ -45,5 +47,6 @@ export class BooksComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.booksDataSubscription.unsubscribe();
+    this.filterSubscription.unsubscribe();
   }
 }

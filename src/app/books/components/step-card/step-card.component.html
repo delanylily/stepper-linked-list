@@ -3,7 +3,7 @@
     <h3>{{step.value.data.title}}</h3>
     <h6>{{step.value.data.author}}</h6>
   </div>
-  <img src="{{step.value.data.image}}" alt="">
+  <img class="book-img" src="{{step.value.data.image}}" alt="">
   <div class="details">
     <i class="fa fa-info-circle"></i>
     <p>{{step.value.data.description | slice:0:300}}</p>
@@ -19,8 +19,8 @@
   </div>
   <div class="request-bar">
     <div class="btn-group-2">
-      <button (click)="request()"> <i class="fa fa-book"></i> Request</button>
-      <button (click)="saveBook(step.value.data)"> <i class="fa fa-heart-o"></i> Save</button>
+      <button class="btn-main" (click)="request()"> <i class="fa fa-book"></i> Request</button>
+      <button class="btn-main outline" (click)="saveBook(step.value.data)"> <i class="fa fa-heart"></i> Save</button>
     </div>
   </div>
 </div>

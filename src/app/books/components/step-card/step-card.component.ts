@@ -8,7 +8,7 @@ import { RequestBookModalComponent } from '../request-book-modal/request-book-mo
 @Component({
   selector: 'step-card',
   templateUrl: './step-card.component.html',
-  styleUrls: ['./step-card.component.less']
+  styleUrls: ['./step-card.component.less', '../../../../assets/styles/buttons.less']
 })
 export class StepCardComponent implements OnInit, OnDestroy {
   @Input() step: any;

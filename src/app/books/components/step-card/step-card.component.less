@@ -1,4 +1,4 @@
-@import '../../../../assets/styles/colors.less';
+@import '../../../../assets/styles/style-variables.less';
 
 .book-card {
   display: grid;
@@ -17,11 +17,14 @@
   align-items: baseline;
 }
 
+i {
+  color: @font-text;
+
+}
+
 .fa {
   font-size: 18px;
 }
-
-
 
 .btn-group-2 {
   display: grid;
@@ -32,7 +35,8 @@
 }
 
 .request-bar {
-  background: @main-blue;
+  background: white;
+  box-shadow: @box-shadow;
   position: fixed;
   bottom: 0;
   width: 100vw;

@@ -1,8 +1,7 @@
-@import url('../../assets/styles/colors.less');
-
+@import url('../../assets/styles/style-variables.less');
 
 .main-nav {
-  background-color: @main-cream;
+  background-color: white;
   width: 100%;
   height: 100px;
   position: fixed;
@@ -43,16 +42,16 @@
   text-align: center;
   font-size: 20px;
   text-decoration: none;
-  color: black;
+  color: @color-primary;
 }
 
 a {
-  color: black;
+  color: @font-text;
 }
 
 a.active,
 a:hover {
-  color: @main-blue;
+  color: @color-secondary;
 }
 
 .menu {
@@ -60,7 +59,7 @@ a:hover {
   grid-template-columns: repeat(4, auto);
   justify-content: space-evenly;
   align-items: center;
-  grid-column-gap: 35px;
+  grid-column-gap: 25px;
 
   & .menu-item {
     display: grid;

@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { HomeComponent } from './home/home.component';
+import { MatchesComponent } from './matches/matches.component';
 
 const routes = [
-  { path: 'home', component: HomeComponent },
+  { path: 'home', loadChildren: () => import('./books/books.module').then(m => m.BooksModule) },
+  { path: 'matches', component: MatchesComponent },
   { path: 'inbox', loadChildren: () => import('./inbox/chat.module').then(m => m.ChatModule) },
   { path: 'books', loadChildren: () => import('./books/books.module').then(m => m.BooksModule) },
   { path: 'user-profile', loadChildren: () => import('./user-profile/user-profile.module').then(m => m.UserProfileModule) },

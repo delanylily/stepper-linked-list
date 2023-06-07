@@ -1,9 +1,10 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { map, Subscription, take } from 'rxjs';
+import { combineLatest, map, Subscription, take } from 'rxjs';
 import { Book } from 'src/app/models/book';
 import { DataService } from 'src/app/shared/data.service';
 import { BookMatchDetails } from '../../models/matchDetails';
+import { HotToastService } from '@ngneat/hot-toast';
 
 @Component({
   selector: 'request-book-modal',
@@ -14,13 +15,13 @@ export class RequestBookModalComponent implements OnInit, OnDestroy {
   @Input() viewModel: any;
   @Output() onConfirmed: EventEmitter<null> = new EventEmitter<null>();
   isOpen: boolean = false;
-  userFavouritesSubscription: Subscription;
+  filterMatchesSubscription: Subscription;
   userBookSubscription: Subscription;
   availabilityText: string;
   requestedBook: Book;
   matchDetails: any;
 
-  constructor(private readonly dataService: DataService, private router: Router) { }
+  constructor(private readonly dataService: DataService, private router: Router, private toastr: HotToastService) { }
 
   ngOnInit() {
     switch (this.viewModel.book.availability) {
@@ -39,18 +40,25 @@ export class RequestBookModalComponent implements OnInit, OnDestroy {
   onConfirm() {
     this.requestedBook = this.viewModel.book;
     const reqBookOwnerId = this.viewModel.book.userId;
-    this.dataService.addToRequested(this.viewModel.user, this.viewModel.book).subscribe();
+    this.dataService.addToRequested(this.viewModel.user, this.viewModel.book).subscribe(res => {
+      this.toastr.success('Book requested succesfully');
+    });
     this.getUserRequests(reqBookOwnerId);
   }
 
   getUserRequests(reqBookOwnerId) {
-    this.dataService.getUserRequests(reqBookOwnerId).pipe(
-      map(requests => {
-        const match = requests.filter((match: any) => match.userId === this.viewModel.user);
-        if (match.length) {
-          this.addToMatches(match[0]);
+    this.filterMatchesSubscription = combineLatest([this.dataService.getUserRequests(reqBookOwnerId), this.dataService.getUserMatches(this.viewModel.user)]).pipe(
+      map(([requests, matches]) => {
+        const matchBookIds = matches.map(match => match.userBook.id);
+        if (requests.length) {
+          const match = requests.filter((request: any) => request.userId === this.viewModel.user && !matchBookIds.includes(request.id));
+          if (match.length) {
+            this.addToMatches(match[0]);
+          } else {
+            this.isOpen = false;
+          }
         }
-      })
+      }), take(1)
     ).subscribe();
   }
 
@@ -76,8 +84,8 @@ export class RequestBookModalComponent implements OnInit, OnDestroy {
     if (this.userBookSubscription) {
       this.userBookSubscription.unsubscribe();
     }
-    if (this.userFavouritesSubscription) {
-      this.userFavouritesSubscription.unsubscribe();
+    if (this.filterMatchesSubscription) {
+      this.filterMatchesSubscription.unsubscribe();
     }
   }
 }
