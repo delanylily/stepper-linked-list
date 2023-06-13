@@ -10,8 +10,49 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
+.container-full-width {
+  background-color: @color-secondary;
+  padding: 15px;
+  color: white;
+  margin-bottom: 20px;
+
+  & h6,
+  h6 {
+    color: white;
+  }
+}
+
+.back {
+  background-color: white;
+  height: 35px;
+  position: fixed;
+  width: 100vw;
+  line-height: 35px;
+  padding-left: 10px;
+  color: @color-secondary;
+  top: 0;
+  margin-bottom: 15px;
+  box-shadow: @box-shadow;
+  display: grid;
+  grid-template-columns: 10px auto;
+  grid-column-gap: 10px;
+  align-items: center;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.container-margin {
+  margin: 15px;
+}
+
+.bookshelf {
+  width: 60px;
+  margin-bottom: 15px;
+}
+
 p {
   color: @font-text;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
 h3 {
@@ -19,9 +60,26 @@ h3 {
   color: @font-text;
 }
 
+h5 {
+  font-size: @lengthMd2;
+}
+
 h6 {
   font-size: @lengthMd1;
   color: @font-label;
+}
+
+.length-sm-1 {
+  font-size: @lengthSm1;
+}
+
+.length-sm-2 {
+  font-size: @lengthSm2;
+}
+
+.length-sm-3 {
+  font-size: @lengthSm3;
+  line-height: 16px;
 }
 
 .spinner {
@@ -42,6 +100,7 @@ h6 {
   overflow-y: scroll;
 }
 
+
 .modal.open {
   display: flex;
   justify-content: center;
@@ -49,11 +108,17 @@ h6 {
   padding: 20px;
 }
 
+.modal-info {
+  padding: 20px 20px 20px 20px;
+  place-items: center;
+  grid-row-gap: 15px;
+  display: grid;
+}
+
 .modal-content {
-  background-color: white;
-  padding: 20px;
   border-radius: 5px;
   text-align: center;
+  z-index: 20;
 }
 
 .btn-default {
@@ -66,15 +131,15 @@ h6 {
 }
 
 .book-img {
-  height: 185ox;
+  height: 115px;
   border-radius: 4px;
   box-shadow: @box-shadow;
   overflow: hidden;
 }
 
 .user-img {
-  width: 100px;
-  height: 100px;
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
   background: white;
   box-shadow: 1px 0 3px 1px #80808066;
@@ -93,12 +158,12 @@ h6 {
 
 .badge-main {
   background-color: @color-secondary;
-  font-size: 15px;
+  font-size: @lengthSm3;
+  margin-left: 5px;
   border-radius: 6px;
-  padding: 4px 12px;
+  padding: 3px 7px;
   color: white;
   font-weight: 500;
-  margin: 5px;
   letter-spacing: 0.5px;
 }
 

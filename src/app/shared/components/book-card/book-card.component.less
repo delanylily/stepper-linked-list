@@ -1,25 +1,38 @@
+@import url('../../../../assets/styles/style-variables.less');
+@import url('../../../../assets/styles/buttons.less');
+
 .book-card {
   display: grid;
   grid-template-columns: 1fr 2fr;
-  grid-column-gap: 15px;
-  margin: 15px;
+  grid-column-gap: 8px;
   box-shadow: 1px 1px 3px 1px #b2b1b140;
   background-color: white;
   padding: 10px;
+  align-items: center;
 }
 
-h6 {
-  margin: 0;
-  font-size: 13px;
-}
 
 .details {
   display: grid;
-  grid-row-gap: 8px;
+  grid-row-gap: 3px;
+  font-size: @lengthSm3;
+}
+
+.badges {
+  margin-bottom: 5px;
+}
+
+.badge-main {
+  margin-left: 0;
+}
+
+i {
+  font-size: @lengthSm3;
 }
 
 .book-img {
   width: 5em;
+  margin-bottom: 5px;
 }
 
 p {
@@ -35,6 +48,6 @@ p {
   display: grid;
   grid-template-columns: repeat(2, auto);
   align-items: center;
-  grid-column-gap: 5px;
+  grid-column-gap: 7px;
   justify-content: left;
 }

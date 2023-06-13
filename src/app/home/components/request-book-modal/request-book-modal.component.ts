@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { combineLatest, map, Subscription, take } from 'rxjs';
 import { Book } from 'src/app/models/book';
 import { DataService } from 'src/app/shared/data.service';
-import { BookMatchDetails } from '../../models/matchDetails';
 import { HotToastService } from '@ngneat/hot-toast';
 
 @Component({
@@ -24,16 +23,19 @@ export class RequestBookModalComponent implements OnInit, OnDestroy {
   constructor(private readonly dataService: DataService, private router: Router, private toastr: HotToastService) { }
 
   ngOnInit() {
-    switch (this.viewModel.book.availability) {
+    console.log(this.viewModel, 'vm');
+  }
+
+  checkAvailability(): string {
+    switch (this.viewModel?.book.availability) {
       case 'both':
-        this.availabilityText = 'borrow and swap';
-        break;
+        return this.availabilityText = 'borrow and swap';
       case 'lend':
-        this.availabilityText = 'borrow';
-        break;
+        return this.availabilityText = 'borrow';
       case 'swap':
-        this.availabilityText = 'swap';
-        break;
+        return this.availabilityText = 'swap';
+      default:
+        return this.availabilityText = '';
     }
   }
 

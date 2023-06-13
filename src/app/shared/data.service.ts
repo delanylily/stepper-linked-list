@@ -4,6 +4,7 @@ import { doc } from '@angular/fire/firestore';
 import { getFirestore } from 'firebase/firestore';
 import { from, Observable, Subject } from 'rxjs';
 import { Book } from '../models/book';
+import { HotToastService } from '@ngneat/hot-toast';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,7 @@ export class DataService {
     image: '',
     availability: ''
   };
-  constructor(private firestore: AngularFirestore) { }
+  constructor(private firestore: AngularFirestore, private toastr: HotToastService) { }
 
   favouriteAdded() {
     this.onFavouriteAdded.next(null);
@@ -40,9 +41,11 @@ export class DataService {
     });
   }
 
-  addToSaved(userId: string, book: Book): Observable<any> {
+  addToSaved(userId: string, book: Book) {
     let collectionRef = this.firestore.collection(`/users/${userId}/favourites`);
-    return from(collectionRef.add(book));
+    return collectionRef.add(book).then((docRef) => {
+      docRef.update({ id: book.id });
+    });
   }
 
   addToMatches(userId: string, matchDetails: any): Observable<any> {
@@ -92,6 +95,25 @@ export class DataService {
   deleteUserBook(userId: string, bookId: string) {
     const itemRef = this.firestore.doc(`/users/${userId}/books/${bookId}`);
     return itemRef.delete();
+  }
+
+  getFavouritesDocument(userId) {
+    return this.firestore.collection(`/users/${userId}/favourites`).snapshotChanges();
+  }
+
+  removeFromFavourites(userId: string, bookId: string) {
+    const collectionRef = this.firestore.collection(`/users/${userId}/favourites`);
+    const query = collectionRef.ref.where('id', '==', bookId);
+    query.get().then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        doc.ref.delete().then(() => {
+          this.toastr.success('Book removed from favourites');
+          location.reload();
+        }).catch((error) => {
+          console.log(error);
+        });
+      });
+    });
   }
 
   getBooks() {

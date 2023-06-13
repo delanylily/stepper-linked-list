@@ -1,47 +1,49 @@
 <frame>
   <div body>
-    <div *ngIf="user$ | async as user" class="welcome">
-      <h6>Welcome back {{user.userDetails?.displayName}}, here are your new matches</h6>
+    <div *ngIf="user$ | async as user" class="container-full-width">
+      <h2>Welcome back, {{user?.displayName}}</h2>
+      <h6 *ngIf="matches?.length">here are your matches!</h6>
+      <h6 *ngIf="!matches?.length">You have no matches yet, come back later to see if one of your books has been
+        matched!
+      </h6>
     </div>
-    <div *ngIf="matches" class="matches">
+    <div *ngIf="matches?.length" class="matches">
       <div *ngFor="let match of matches" class="match-card">
         <div class="match-details">
-          <div class="book-match">
-            <img src="{{match.userBook.image}}" alt="">
+          <div class="book-details">
+            <img class="book-img" src="{{match.userBook.image}}" alt="">
+            <p class="length-sm-1">{{match.userBook.title}}</p>
           </div>
           <i class="fa fa-heart"></i>
-          <div class="book-match">
-            <img src="{{match.matchBook.image}}" alt="">
+          <div class="book-details">
+            <img class="book-img" src="{{match.matchBook.image}}" alt="">
+            <p class="length-sm-1">{{match.matchBook.title}}</p>
           </div>
         </div>
         <div class="btn-group btn-2">
-          <button>Message user</button>
-          <button [routerLink]="['/user', match.matchBook.userId]">View user's collection</button>
+          <button class="btn-main submit large-btn">Message user</button>
+          <button class="btn-main outline large-btn" [routerLink]="['/user', match.matchBook.userId]">User's
+            collection</button>
         </div>
       </div>
     </div>
-    <h6>favourites</h6>
-    <div *ngIf="bookList.length" class="book-grid">
-      <div *ngFor="let book of bookList" class="book-card">
-        <img src="{{book?.image}}" alt="">
-        <div class="details">
-          <div class="title">
-            <label>Title</label>
-            <p>{{book.title}}</p>
-          </div>
-          <div class="author">
-            <label>Author</label>
-            <p>{{book?.author}}</p>
-          </div>
-          <div class="availability">
-            <label>Availability</label>
-            <p>{{book.availability === 'both' ? 'Borrow and swap' : book.availability}}</p>
-          </div>
-          <a [routerLink]="['/user', book.userId]">Book owner collection</a>
-
-          <!-- <a [routerLink]="['/user', book.userId]" (click)="navigateToUserProfile(book.userId)">Book owner collection</a> -->
-        </div>
-      </div>
+    <div class="container-full-width">
+      <h6>Favourites</h6>
     </div>
+    <div class="container-margin">
+      <div *ngIf="bookList else noFavourites" class="book-grid">
+        <book-card (onRequestBook)="onRequestBook($event)" (bookDelete)="onBookDelete($event)"
+          *ngFor="let book of bookList" [bookVM]="book"></book-card>
+      </div>
+      <ng-template #noFavourites>
+        <div class="no-favourites">
+          <img class="bookshelf" src="../../assets/images/bookshelf.jpg" alt="">
+          <h5>You have no books saved</h5>
+          <p class="length-sm-3">Register or login to save books to your favourites</p>
+          <button [routerLink]="['/home']" class="btn-main submit">Find Books</button>
+        </div>
+      </ng-template>
+    </div>
+    <request-book-modal #requestModal [viewModel]="requestedDetails"></request-book-modal>
   </div>
 </frame>

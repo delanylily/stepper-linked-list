@@ -3,7 +3,7 @@
 
 .btn-group {
   display: grid;
-  grid-column-gap: 8px;
+  grid-column-gap: 15px;
 
   &.btn-2 {
     grid-template-columns: repeat(2, auto);
@@ -11,19 +11,61 @@
 }
 
 .btn-main {
-  background-color: @color-primary;
   border-radius: 20px;
   height: 35px;
-  width: 140px;
+  width: auto;
   display: grid;
   grid-column-gap: 15px;
   justify-content: center;
-  grid-template-columns: 10px auto;
   align-items: center;
   color: white;
   outline: none;
   border: none;
   font-size: @lengthMd1;
+  padding-left: 23px;
+  padding-right: 23px;
+
+  &.submit {
+    background-color: @color-primary;
+  }
+
+  &.inverted {
+    background-color: @color-secondary;
+    border: solid 1px @font-text;
+    color: @font-text;
+
+    & i {
+      color: @font-text;
+    }
+  }
+
+  &.small {
+    font-size: @lengthSm2;
+    grid-column-gap: 7px;
+    padding-left: 12px;
+    padding-right: 12px;
+    height: 25px;
+
+    i {
+      font-size: @lengthSm2;
+    }
+  }
+
+  &.large-btn {
+    height: auto;
+    font-size: @lengthSm3;
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
+
+  &.btn-cancel {
+    background-color: @box-shadow;
+    color: @font-text;
+  }
+
+  &.btn-icon {
+    grid-template-columns: 10px auto;
+  }
 
   &.outline {
     background-color: white;

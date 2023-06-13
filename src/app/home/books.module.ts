@@ -7,19 +7,20 @@ import { StepperComponent } from './components/stepper-container/stepper-contain
 import { StepComponent } from './components/step/step.component';
 import { BooksRoutingModule } from './books.routing.module';
 import { FrameModule } from '../frame/frame.module';
+import { RequestBookModule } from './components/request-book-modal/request-book.module';
 
 @NgModule({
   imports: [
     CommonModule,
     BooksRoutingModule,
-    FrameModule
+    FrameModule,
+    RequestBookModule
   ],
   declarations: [
     BooksComponent,
     StepComponent,
     StepCardComponent,
     StepperComponent,
-    RequestBookModalComponent
   ]
 })
 export class BooksModule { }

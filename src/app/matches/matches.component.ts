@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from 'firebase/auth';
 import { combineLatest, concatMap, forkJoin, map, mergeMap, Observable, Subscription, take, tap, toArray } from 'rxjs';
@@ -6,6 +6,8 @@ import { AuthService } from '../auth/services/auth.service';
 import { Book } from '../models/book';
 import { UserService } from '../services/user.service';
 import { DataService } from '../shared/data.service';
+import { HotToastService } from '@ngneat/hot-toast';
+import { RequestBookModalComponent } from '../home/components/request-book-modal/request-book-modal.component';
 
 @Component({
   selector: 'app-matches',
@@ -20,10 +22,14 @@ export class MatchesComponent implements OnInit, OnDestroy {
   userId: string;
   user$: any;
   bookDetailsSubscription: Subscription;
-  matches;
-  constructor(private readonly router: Router, private readonly authService: AuthService, private readonly dataService: DataService, private userService: UserService) { }
+  matches: Array<any>;
+  requestedDetails: { book: Book, user: string; };
+  @ViewChild('requestModal') requestModal: RequestBookModalComponent;
+
+  constructor(private readonly toastr: HotToastService, private readonly router: Router, private readonly authService: AuthService, private readonly dataService: DataService, private userService: UserService) { }
 
   ngOnInit() {
+    this.requestedDetails = undefined;
     this.userSubscription = this.authService.user$.pipe(
       map(user => {
         this.userId = user.uid;
@@ -40,22 +46,22 @@ export class MatchesComponent implements OnInit, OnDestroy {
     });
   }
 
+  onRequestBook(book): void {
+    this.requestedDetails = { book: book, user: this.userId };
+    this.requestModal.toggleModal();
+  }
+
+  onBookDelete(book) {
+    this.dataService.removeFromFavourites(this.userId, book.bookId);
+  }
+
   getUserFavourites() {
     this.favouritesSubscription = this.dataService.getUserFavourites(this.userId).pipe(
       map(fav => {
         fav.map(book => {
-          this.getBookDetails(book);
+          this.bookList.push(book);
         });
       }),
-    ).subscribe();
-  }
-
-  getBookDetails(book) {
-    this.bookDetailsSubscription = this.dataService.getUserBook(book.userId, book.id).pipe(
-      map(book => {
-        this.bookList.push(book);
-      }),
-      take(1)
     ).subscribe();
   }
 

@@ -29,6 +29,7 @@ export class UserCollectionComponent implements OnInit, OnDestroy {
     const doc$ = this.dataService.getBooksDocument(this.userId);
     this.data$ = combineLatest([books$, doc$]).pipe(
       map(([books, doc]) => {
+        this.doc = doc;
         return { books, doc };
       })
     );

@@ -20,12 +20,10 @@ import { FrameModule } from './frame/frame.module';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { UserProfileModule } from './user-profile/user-profile.module';
-import { MatchesComponent } from './matches/matches.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    MatchesComponent,
   ],
   imports: [
     BrowserModule,
