@@ -45,6 +45,35 @@ body {
   margin: 15px;
 }
 
+.user-details {
+  display: grid;
+  background-color: @main-blue;
+  grid-template-columns: 80px auto;
+  align-items: center;
+  padding: 15px;
+  grid-column-gap: 15px;
+  margin-top: 35px;
+}
+
+.name {
+  font-weight: 600;
+  font-size: @lengthSm3;
+}
+
+.description {
+  font-size: @lengthSm2;
+}
+
+.details {
+  display: grid;
+  grid-row-gap: 4px;
+}
+
+.container-full-width {
+  background-color: white;
+  color: @font-text;
+}
+
 .bookshelf {
   width: 60px;
   margin-bottom: 15px;
@@ -58,6 +87,10 @@ p {
 h3 {
   font-size: @lengthMd2;
   color: @font-text;
+}
+
+h4 {
+  font-size: @lengthMd2;
 }
 
 h5 {

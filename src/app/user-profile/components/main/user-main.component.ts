@@ -9,11 +9,9 @@ import { UserService } from 'src/app/services/user.service';
 @Component({
   selector: 'user-main',
   templateUrl: './user-main.component.html',
-  styleUrls: ['./user-main.component.less']
+  styleUrls: ['./user-main.component.less', '../../../../assets/styles/buttons.less']
 })
 export class UserMainComponent implements OnInit, OnDestroy {
-  // userId: string;
-  // user: User;
   user: any;
   userSubscription: Subscription;
   userForm = new FormGroup({
@@ -28,13 +26,6 @@ export class UserMainComponent implements OnInit, OnDestroy {
   constructor(private authService: AuthService, private readonly userService: UserService) { }
 
   ngOnInit() {
-    // this.store.select(user).pipe(
-    //   filter(user => user !== undefined),
-    //   map(user => {
-    //     this.user = user;
-    //   })
-    // ).subscribe();
-
     this.userSubscription = this.authService.user$.pipe(
       switchMap(user => {
         return this.userService.getUser(user.uid).pipe(

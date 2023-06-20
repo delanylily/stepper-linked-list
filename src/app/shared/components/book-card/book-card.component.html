@@ -6,19 +6,29 @@
     <p class="length-sm-2">{{bookVM.title}}, <i>{{bookVM.author}}</i></p>
     <div class="info">
       <i class="fa fa-bookmark"></i>
-      <div class="badges">
+      <div *ngIf="!cardSettings?.requestToggle else editRequest" class="badges">
         <span *ngIf="bookVM.availability === 'both' || bookVM.availability === 'lend'" class="badge-main">Borrow</span>
         <span *ngIf="bookVM.availability === 'bsoth' || bookVM.availability === 'swap'" class="badge-main">Swap</span>
       </div>
+      <ng-template #editRequest>
+        <div class="toggle-group">
+          <button class="btn-main small square" [ngClass]="bookVM.availability === 'lend' ? 'submit' : 'outline'"
+            (click)="selectBookAvailability('lend', bookVM.id)">Lend</button>
+          <button class="btn-main small square" [ngClass]="bookVM.availability === 'swap' ? 'submit' : 'outline'"
+            (click)="selectBookAvailability('swap', bookVM.id)">Swap</button>
+          <button class="btn-main small square" [ngClass]="bookVM.availability === 'both' ? 'submit' : 'outline'"
+            (click)="selectBookAvailability('both', bookVM.id)">Both</button>
+        </div>
+      </ng-template>
     </div>
-    <div class="info">
+    <div *ngIf="cardSettings?.summary" class="info">
       <i class="fa fa-info-circle"></i>
       <a (click)="viewDetails({title: bookVM.title, author: bookVM.author, description: bookVM.description})">Book
         summary</a>
     </div>
     <div *ngIf="cardSettings?.delete" class="info">
       <i class="fa fa-trash"></i>
-      <a (click)="removeBook(bookVM.id, bookVM.userId)">Remove book</a>
+      <a (click)="removeBook(bookVM.id, bookVM.userId)">Delete book</a>
     </div>
     <div class="request-bar">
       <div class="btn-group btn-2">

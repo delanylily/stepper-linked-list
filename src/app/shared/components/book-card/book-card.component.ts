@@ -9,10 +9,11 @@ import { BookDescriptionModalComponent } from 'src/app/user/components/book-desc
 })
 export class BookCardComponent implements OnInit {
   @Input() bookVM: Book;
-  @Input() cardSettings: { delete: boolean, collection: boolean, request: boolean; };
+  @Input() cardSettings: { delete: boolean, collection: boolean, request: boolean; requestToggle: boolean; };
   @Output() bookDetails: EventEmitter<any> = new EventEmitter<any>();
   @Output() bookDelete: EventEmitter<any> = new EventEmitter<any>();
   @Output() onRequestBook: EventEmitter<any> = new EventEmitter<any>();
+  @Output() onRequestEdit: EventEmitter<{ bookAvailability: string, bookId: string; }> = new EventEmitter<{ bookAvailability: string, bookId: string; }>();
   @ViewChild('modal') bookDescriptionModal: BookDescriptionModalComponent;
 
   bookSummaryDetails: any;
@@ -20,12 +21,15 @@ export class BookCardComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log(this.cardSettings);
   }
 
   viewDetails(book): void {
     this.bookSummaryDetails = book;
     this.bookDescriptionModal.toggleModal();
+  }
+
+  selectBookAvailability(event: string, bookId: string) {
+    this.onRequestEdit.emit({ bookAvailability: event, bookId: bookId });
   }
 
   removeBook(bookId, userId): void {

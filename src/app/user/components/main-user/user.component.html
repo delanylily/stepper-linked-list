@@ -17,7 +17,7 @@
     <h5>Collection</h5>
     <div class="collection">
       <book-card *ngFor="let book of data.books" (onRequestBook)="onBookRequested($event)"
-        [cardSettings]="{delete: false, collection: false, request: shouldShowRequest(book.id)}"
+        [cardSettings]="{delete: false, collection: false, summary: true, request: shouldShowRequest(book.id)}"
         [bookVM]="book"></book-card>
     </div>
   </div>

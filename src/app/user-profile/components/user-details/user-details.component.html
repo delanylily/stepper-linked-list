@@ -3,14 +3,8 @@
     <img src="{{user.photoURL}}" alt="">
   </div>
   <div class="details">
-    <div class="row-align">
-      <label>User name:</label>
-      <p>{{user?.displayName}}</p>
-    </div>
-    <div class="row-align">
-      <label>Language:</label>
-      <p>{{user?.language}}</p>
-    </div>
+    <p class="name">{{user?.displayName}}</p>
+    <p class="description" *ngIf="user?.description">{{user?.description}}</p>
     <div class="edit">
       <a (click)="onEdit()"><i class="fa fa-edit"></i>Edit profile</a>
     </div>

@@ -1,17 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { HotToastService } from '@ngneat/hot-toast';
 import { Router } from '@angular/router';
+import { Subscription, switchMap, tap } from 'rxjs';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.less']
+  styleUrls: ['../../styles/auth-styles.less', '../../../../assets/styles/buttons.less']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
   email: string = '';
   password: string = '';
   isLoggingIn = false;
+  loginSubscription: Subscription;
 
   constructor(private auth: AuthService, private readonly toastr: HotToastService, private readonly router: Router) { }
 
@@ -28,21 +30,21 @@ export class LoginComponent implements OnInit {
       alert('Please enter password');
       return;
     }
-    this.auth.login(this.email, this.password).pipe(
+    this.loginSubscription = this.auth.login(this.email, this.password).pipe(
       this.toastr.observe({
-        success: 'Logged in successfully',
         loading: 'Logging in...',
+        success: 'Logged in successfully',
         error: ({ message }) => `there was an error: ${message}`
       })
-    ).subscribe(() => {
-      this.router.navigate(['/home']);
-    });
-    this.email = '';
-    this.password = '';
+
+    ).subscribe(() => this.router.navigate(['/home']));
   }
 
   signInWithGoogle() {
     this.auth.signInWithGoogle();
   }
 
+  ngOnDestroy(): void {
+    this.loginSubscription.unsubscribe();
+  }
 }

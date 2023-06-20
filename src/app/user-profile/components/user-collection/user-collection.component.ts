@@ -48,9 +48,8 @@ export class UserCollectionComponent implements OnInit, OnDestroy {
     });
   }
 
-  selectBookAvailability(event: string, bookId: string) {
-    this.bookAvailability = event;
-    this.bookAvailabilitySubscription = this.dataService.updateBookAvailability(this.userId, bookId, this.bookAvailability).subscribe(() => {
+  selectBookAvailability(event): void {
+    this.bookAvailabilitySubscription = this.dataService.updateBookAvailability(this.userId, event.bookId, event.bookAvailability).subscribe(() => {
       this.toastr.success('Book availability updated');
     }, () => {
       this.toastr.success('Book availability failed');
@@ -58,7 +57,7 @@ export class UserCollectionComponent implements OnInit, OnDestroy {
   }
 
 
-  onDeleteSelected(element) {
+  onDeleteSelected(element): void {
     this.itemToDelete = element;
     this.modalContent.heading = "Confirm deletion";
     this.modalContent.message = `Are you sure you would like to delete "${element.title}" from your collection?`;

@@ -11,10 +11,19 @@
   align-items: center;
 }
 
+.toggle-group {
+  grid-column-gap: 0;
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+}
+
+.square {
+  border-radius: 0 !important;
+}
 
 .details {
   display: grid;
-  grid-row-gap: 3px;
+  grid-row-gap: 5px;
   font-size: @lengthSm3;
 }
 

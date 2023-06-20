@@ -8,5 +8,5 @@ export interface User {
   lastName?: string;
   books?: any;
   profileImg?: any;
-
+  description?: string;
 }

@@ -6,7 +6,7 @@ import { AuthService } from '../../services/auth.service';
 @Component({
   selector: 'app-forgot-password',
   templateUrl: './forgot-password.component.html',
-  styleUrls: ['./forgot-password.component.less']
+  styleUrls: ['../../styles/auth-styles.less', '../../../../assets/styles/buttons.less']
 })
 export class ForgotPasswordComponent implements OnInit {
   email: string = '';
@@ -23,7 +23,7 @@ export class ForgotPasswordComponent implements OnInit {
       })).subscribe(() => {
         setTimeout(() => {
           this.router.navigate(['/auth']);
-        }, 6000)
+        }, 6000);
       });
   }
 }

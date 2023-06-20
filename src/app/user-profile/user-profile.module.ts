@@ -12,6 +12,7 @@ import { UserMainComponent } from './components/main/user-main.component';
 import { UserDetailsComponent } from './components/user-details/user-details.component';
 import { UserProfileRoutingModule } from './user-profile.routing.module';
 import { EditProfileModalComponent } from './components/edit-profile-modal/edit-profile-modal.component';
+import { BookCardModule } from '../shared/components/book-card/book-card.module';
 
 
 @NgModule({
@@ -19,6 +20,7 @@ import { EditProfileModalComponent } from './components/edit-profile-modal/edit-
     CommonModule,
     UserProfileRoutingModule,
     ReactiveFormsModule,
+    BookCardModule,
     FormsModule,
     FrameModule
     // StoreModule.forFeature(userFeatureKey, userReducer),

@@ -8,12 +8,16 @@
   &.btn-2 {
     grid-template-columns: repeat(2, auto);
   }
+
+  &.btn-3 {
+    grid-template-columns: repeat(3, auto);
+  }
 }
 
 .btn-main {
   border-radius: 20px;
   height: 35px;
-  width: auto;
+  width: max-content;
   display: grid;
   grid-column-gap: 15px;
   justify-content: center;
@@ -64,7 +68,7 @@
   }
 
   &.btn-icon {
-    grid-template-columns: 10px auto;
+    grid-template-columns: 10px max-content;
   }
 
   &.outline {

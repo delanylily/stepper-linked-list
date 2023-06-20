@@ -8,7 +8,7 @@ import { AuthService } from '../../services/auth.service';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.less']
+  styleUrls: ['../../styles/auth-styles.less', '../../../../assets/styles/buttons.less']
 })
 export class RegisterComponent implements OnInit {
   email: string = '';

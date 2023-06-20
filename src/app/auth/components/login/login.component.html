@@ -1,44 +1,25 @@
-<div class="container-fluid">
-  <div class="row mt-5">
-    <div class="col"></div>
-    <div class="col-4">
-      <div class="card shadow">
-        <div class="card-body">
-          <form>
-            <div class="mb-3">
-              <h4 class="text-dark text-muted">Login</h4>
-            </div>
-            <div class="form-group">
-              <label for="exampleInputEmail1">Email</label>
-              <input type="email" class="form-control" name="email" [(ngModel)]="email">
-            </div>
-            <div class="form-group">
-              <label for="exampleInputPassword1">Password</label>
-              <input type="password" class="form-control" name="password" placeholder="Password" [(ngModel)]="password">
-            </div>
-            <button (click)="login()" type="button" class="btn btn-info">Login</button>
-            <div class="row">
-              <div class="col-md-6">
-                <a [routerLink]="['register']" style="text-decoration: none;">Need account? <span
-                    class="text-danger">Register</span></a>
-              </div>
-              <div class="col-md-6">
-                <a [routerLink]="['/auth/forgot-password']" style="text-decoration: none;" class="text-dark">Forgot password?</a>
-              </div>
-              <div class="row-mt-2">
-                <a style = "text-decoration: none; cursor: pointer;" (click)="signInWithGoogle()">
-                  <div class="card shadow text-center">
-                    <div class="card-body">
-                      <img src="../../../assets/icons/google.png" height="24px" width="24px" alt=""> Sign In with Google
-                    </div>
-                  </div>
-                </a>
-              </div>
-            </div>
-          </form>
-        </div>
+<div class="auth-container">
+  <a class="logo">BookHive</a>
+  <div class="form-group">
+    <label for="exampleInputEmail1">Email</label>
+    <input type="email" class="form-control" name="email" [(ngModel)]="email">
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1">Password</label>
+    <input type="password" class="form-control" name="password" placeholder="Password" [(ngModel)]="password">
+  </div>
+  <button (click)="login()" type="button" class="btn-main submit">Login</button>
+  <span>or</span>
+  <button (click)="signInWithGoogle()" class="btn-icon btn-google">
+    <img src="../../../assets/icons/google.png" height="24px" width="24px" alt=""> Sign In with Google
+  </button>
+  <!-- <a style="text-decoration: none; cursor: pointer;" (click)="signInWithGoogle()">
+    <div class="card shadow text-center">
+      <div class="card-body">
+        <img src="../../../assets/icons/google.png" height="24px" width="24px" alt="">  Sign In with Google
       </div>
     </div>
-    <div class="col"></div>
-  </div>
+  </a> -->
+  <a [routerLink]="['register']" style="text-decoration: none;">Don't have an account? <span
+      class="text-register">Register</span></a>
 </div>
