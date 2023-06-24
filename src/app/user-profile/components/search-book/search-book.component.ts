@@ -16,11 +16,14 @@ export class SearchBookComponent implements OnInit {
   book: Book;
   books: Array<Book> = [];
   searchInput: Subject<string> = new Subject();
+  selectedBookImage: any;
   selectedBook: any;
   toggleBook: boolean = false;
   index: any;
   myBooks = [];
   loading: boolean = false;
+  hoverState: boolean;
+  activeBook: any;
 
   constructor(private readonly bookService: BooksService, private readonly dataService: DataService, private authService: AuthService, private toastr: HotToastService) { }
 
@@ -31,10 +34,9 @@ export class SearchBookComponent implements OnInit {
     });
   }
 
-  bookSelected(item, index) {
-    this.index = index;
-    this.toggleBook = !this.toggleBook;
-    this.selectedBook = item;
+  bookSelected(book, index) {
+    this.selectedBook = book;
+    this.activeBook = index;
   }
 
   onBookSaved(availability: string) {

@@ -1,9 +1,9 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { HotToastService } from '@ngneat/hot-toast';
-import { GenericModalComponent } from 'src/app/auth/components/generic-modal/generic-modal.component';
 import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user.service';
+import { GenericModalComponent } from 'src/app/shared/components/generic-modal/generic-modal.component';
 
 @Component({
   selector: 'user-details',

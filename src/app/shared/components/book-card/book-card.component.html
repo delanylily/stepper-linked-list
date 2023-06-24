@@ -1,12 +1,12 @@
-<div *ngIf="bookVM" class="book-card">
+<div [class.selected]="cardSettings.active" *ngIf="bookVM" class="book-card">
   <div class="img-col">
     <img class="book-img" src="{{bookVM.image}}" alt="">
   </div>
   <div class="details">
     <p class="length-sm-2">{{bookVM.title}}, <i>{{bookVM.author}}</i></p>
-    <div class="info">
+    <div *ngIf="cardSettings?.requestOptions" class="info">
       <i class="fa fa-bookmark"></i>
-      <div *ngIf="!cardSettings?.requestToggle else editRequest" class="badges">
+      <div *ngIf="cardSettings?.requestOptions.display else editRequest" class="badges">
         <span *ngIf="bookVM.availability === 'both' || bookVM.availability === 'lend'" class="badge-main">Borrow</span>
         <span *ngIf="bookVM.availability === 'bsoth' || bookVM.availability === 'swap'" class="badge-main">Swap</span>
       </div>

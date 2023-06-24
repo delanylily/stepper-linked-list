@@ -9,13 +9,12 @@ import { BookDescriptionModalComponent } from 'src/app/user/components/book-desc
 })
 export class BookCardComponent implements OnInit {
   @Input() bookVM: Book;
-  @Input() cardSettings: { delete: boolean, collection: boolean, request: boolean; requestToggle: boolean; };
+  @Input() cardSettings: { delete: boolean, collection: boolean, active: boolean, request: boolean; requestOptions: { edit: boolean, display: boolean; }; };
   @Output() bookDetails: EventEmitter<any> = new EventEmitter<any>();
   @Output() bookDelete: EventEmitter<any> = new EventEmitter<any>();
   @Output() onRequestBook: EventEmitter<any> = new EventEmitter<any>();
   @Output() onRequestEdit: EventEmitter<{ bookAvailability: string, bookId: string; }> = new EventEmitter<{ bookAvailability: string, bookId: string; }>();
   @ViewChild('modal') bookDescriptionModal: BookDescriptionModalComponent;
-
   bookSummaryDetails: any;
 
   constructor() { }

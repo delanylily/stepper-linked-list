@@ -7,12 +7,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FrameModule } from '../frame/frame.module';
 import { AddBookConfirmationModalComponent } from './components/add-book-confirmation-modal/add-book-confirmation-modal.component';
 import { UserCollectionComponent } from './components/user-collection/user-collection.component';
-import { GenericModalComponent } from '../auth/components/generic-modal/generic-modal.component';
 import { UserMainComponent } from './components/main/user-main.component';
 import { UserDetailsComponent } from './components/user-details/user-details.component';
 import { UserProfileRoutingModule } from './user-profile.routing.module';
 import { EditProfileModalComponent } from './components/edit-profile-modal/edit-profile-modal.component';
 import { BookCardModule } from '../shared/components/book-card/book-card.module';
+import { GenericModalModule } from '../shared/components/generic-modal/generic-modal.module';
 
 
 @NgModule({
@@ -22,13 +22,13 @@ import { BookCardModule } from '../shared/components/book-card/book-card.module'
     ReactiveFormsModule,
     BookCardModule,
     FormsModule,
-    FrameModule
+    FrameModule,
+    GenericModalModule
     // StoreModule.forFeature(userFeatureKey, userReducer),
     // EffectsModule.forFeature(UserEffects)
   ],
   declarations: [
     UserMainComponent,
-    GenericModalComponent,
     SearchBookComponent,
     UserDetailsComponent,
     AddBookComponent,

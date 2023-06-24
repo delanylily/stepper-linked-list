@@ -22,3 +22,16 @@
   grid-template-columns: repeat(3, auto);
   grid-column-gap: 2px;
 }
+
+
+@media(min-width: 375px) {
+  .user-collection {
+    grid-template-columns: repeat(2, min-content);
+  }
+}
+
+@media(min-width: 1135px) {
+  .user-collection {
+    grid-template-columns: repeat(4, min-content);
+  }
+}

@@ -1,0 +1,11 @@
+<div *ngIf="viewModel" class="modal" [ngClass]="{'open': isOpen}">
+  <div class="modal-content">
+    <i (click)="toggleModal()" class="fa fa-close"></i>
+    <h3>{{viewModel.heading}}</h3>
+    <p>{{viewModel.message}}</p>
+    <div class="btn-group btn-2">
+      <button class="btn-main submit" (click)="onConfirm()">Confirm</button>
+      <button class="btn-main btn-cancel" (click)="toggleModal()">Cancel</button>
+    </div>
+  </div>
+</div>

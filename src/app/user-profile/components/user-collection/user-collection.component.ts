@@ -1,7 +1,7 @@
 import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { HotToastService } from '@ngneat/hot-toast';
 import { combineLatest, map, Subscription } from 'rxjs';
-import { GenericModalComponent } from 'src/app/auth/components/generic-modal/generic-modal.component';
+import { GenericModalComponent } from 'src/app/shared/components/generic-modal/generic-modal.component';
 import { DataService } from 'src/app/shared/data.service';
 
 @Component({
