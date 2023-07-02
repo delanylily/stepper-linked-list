@@ -1,16 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import { HotToastService } from '@ngneat/hot-toast';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { debounceTime, map, Subject } from 'rxjs';
 import { AuthService } from 'src/app/auth/services/auth.service';
-import { UserService } from 'src/app/services/user.service';
 import { Book } from '../../../models/book';
 import { BooksService } from '../../../services/books.service';
 import { DataService } from '../../../shared/data.service';
+import { NgToastService } from 'ng-angular-popup';
+import { GenericModalComponent } from 'src/app/shared/components/generic-modal/generic-modal.component';
 
 @Component({
   selector: 'search-book',
   templateUrl: './search-book.component.html',
-  styleUrls: ['./search-book.component.less']
+  styleUrls: ['./search-book.component.less', '../../../../assets/styles/buttons.less']
 })
 export class SearchBookComponent implements OnInit {
   book: Book;
@@ -24,8 +24,10 @@ export class SearchBookComponent implements OnInit {
   loading: boolean = false;
   hoverState: boolean;
   activeBook: any;
+  availability: string;
+  @ViewChild('modal') modal: GenericModalComponent;
 
-  constructor(private readonly bookService: BooksService, private readonly dataService: DataService, private authService: AuthService, private toastr: HotToastService) { }
+  constructor(private readonly bookService: BooksService, private readonly dataService: DataService, private authService: AuthService, private readonly toastService: NgToastService) { }
 
   ngOnInit() {
     this.searchInput.pipe(debounceTime(1000)).subscribe((input) => {
@@ -35,17 +37,20 @@ export class SearchBookComponent implements OnInit {
   }
 
   bookSelected(book, index) {
-    this.selectedBook = book;
     this.activeBook = index;
+    this.selectedBook = book;
   }
 
-  onBookSaved(availability: string) {
+  onAvailabilitySelected(availability): void {
+    this.availability = availability;
+  }
+
+  onBookSaved() {
     this.authService.currentUser$.subscribe(res => {
-      this.dataService.addBookWithId({ ...this.selectedBook, availability: availability }, res.uid).then(ref => {
-        this.toastr.success(`Your book "${this.selectedBook.title}" has been added succesfully!`);
-      }, error => {
-        this.toastr.error(`There has been an error adding the book: ${error}`);
-      });
+      this.dataService.addBookWithId({ ...this.selectedBook, availability: this.availability ? this.availability : 'both' }, res.uid).then(ref => {
+        this.toastService.success({ detail: `Your book "${this.selectedBook.title}" has been added succesfully!`, duration: 3000 });
+        this.modal.toggleModal();
+      }, err => this.toastService.error({ detail: `There has been an error adding the book: ${err}`, duration: 5000 }));
     });
   }
 

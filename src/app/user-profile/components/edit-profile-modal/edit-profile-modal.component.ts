@@ -4,7 +4,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 @Component({
   selector: 'edit-profile-modal',
   templateUrl: './edit-profile-modal.component.html',
-  styleUrls: ['./edit-profile-modal.component.less']
+  styleUrls: ['./edit-profile-modal.component.less', '../../../../assets/styles/buttons.less']
 })
 export class EditProfileModalComponent implements OnInit {
   @Output() onConfirmed: EventEmitter<any> = new EventEmitter<any>();
@@ -14,7 +14,7 @@ export class EditProfileModalComponent implements OnInit {
   userForm = new FormGroup({
     photoUrl: new FormControl(''),
     displayName: new FormControl(''),
-    language: new FormControl('')
+    description: new FormControl('')
   });
 
   constructor() { }
@@ -23,7 +23,7 @@ export class EditProfileModalComponent implements OnInit {
     this.userForm = new FormGroup({
       photoUrl: new FormControl(this.userDetails.photoURL),
       displayName: new FormControl(this.userDetails.displayName),
-      language: new FormControl('')
+      description: new FormControl('')
     });
   }
 

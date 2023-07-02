@@ -1,25 +1,31 @@
-<div class="auth-container">
-  <a class="logo">BookHive</a>
-  <div class="form-group">
-    <label for="exampleInputEmail1">Email</label>
-    <input type="email" class="form-control" name="email" [(ngModel)]="email">
-  </div>
-  <div class="form-group">
-    <label for="exampleInputPassword1">Password</label>
-    <input type="password" class="form-control" name="password" placeholder="Password" [(ngModel)]="password">
-  </div>
-  <button (click)="login()" type="button" class="btn-main submit">Login</button>
-  <span>or</span>
-  <button (click)="signInWithGoogle()" class="btn-icon btn-google">
-    <img src="../../../assets/icons/google.png" height="24px" width="24px" alt=""> Sign In with Google
-  </button>
-  <!-- <a style="text-decoration: none; cursor: pointer;" (click)="signInWithGoogle()">
-    <div class="card shadow text-center">
-      <div class="card-body">
-        <img src="../../../assets/icons/google.png" height="24px" width="24px" alt="">  Sign In with Google
+<div class="container-wrap">
+  <div class="auth-container">
+    <a class="logo">BookHive</a>
+    <form class="auth-form" (ngSubmit)="login()" [formGroup]="loginForm">
+      <div class="form-group">
+        <label for="exampleInputEmail1">Email</label>
+        <input type="email" class="form-control" name="email" formControlName="email">
+        <div class="form-error" *ngIf="loginForm.get('email').errors && loginForm.get('email').dirty">
+          <p *ngIf="loginForm.get('email').hasError('required')">* Email is required </p>
+          <p *ngIf="loginForm.get('email').hasError('email')">* Invalid email format</p>
+        </div>
       </div>
-    </div>
-  </a> -->
-  <a [routerLink]="['register']" style="text-decoration: none;">Don't have an account? <span
-      class="text-register">Register</span></a>
+      <div class="form-group">
+        <label for="exampleInputPassword1">Password</label>
+        <input type="password" class="form-control" name="password" placeholder="Password" formControlName="password">
+        <div class="form-error" *ngIf="loginForm.get('password').errors && loginForm.get('password').dirty">
+          <p *ngIf="loginForm.get('password').hasError('required')">* Password is required </p>
+          <p *ngIf="loginForm.get('password').hasError('minlength')">* Password should be at least 8 characters long.
+          </p>
+        </div>
+      </div>
+      <button [disabled]="loginForm.invalid" type="submit" class="btn-main submit">Login</button>
+      <span>or</span>
+      <button (click)="signInWithGoogle()" class="btn-icon btn-google">
+        <img src="../../../assets/icons/google.png" height="24px" width="24px" alt=""> Sign In with Google
+      </button>
+      <a [routerLink]="['register']" style="text-decoration: none;">Don't have an account? <span
+          class="text-register">Register</span></a>
+    </form>
+  </div>
 </div>

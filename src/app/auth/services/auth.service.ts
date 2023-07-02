@@ -16,8 +16,8 @@ export class AuthService {
   constructor(private router: Router, private readonly auth: Auth, private afAuth: AngularFireAuth) {
   }
 
-  login(email: string, password: string): Observable<any> {
-    return from(this.afAuth.signInWithEmailAndPassword(email, password));
+  login(loginForm): Observable<any> {
+    return from(this.afAuth.signInWithEmailAndPassword(loginForm.email, loginForm.password));
   }
 
   signOut(): Observable<any> {
@@ -47,8 +47,10 @@ export class AuthService {
   //   });
   // }
 
-  signUp(displayName: string, email: string, password: string): Observable<any> {
-    return from(createUserWithEmailAndPassword(this.authFire, email, password));
+  // signUp(displayName: string, email: string, password: string): Observable<any> {
+  signUp(registerForm): Observable<any> {
+
+    return from(createUserWithEmailAndPassword(this.authFire, registerForm.email, registerForm.password));
   }
 
   // signUp(email: string, password: string): Observable<any> {

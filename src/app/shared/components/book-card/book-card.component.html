@@ -31,7 +31,7 @@
       <a (click)="removeBook(bookVM.id, bookVM.userId)">Delete book</a>
     </div>
     <div class="request-bar">
-      <div class="btn-group btn-2">
+      <div [ngClass]="{'align-left' : !cardSettings?.collection}" class="btn-group btn-2">
         <button *ngIf="cardSettings?.request" (click)="requestBook()" class="btn-main submit small">Request</button>
         <button *ngIf="cardSettings?.collection" [routerLink]="['/user', bookVM.userId]"
           class="btn-main outline small">Collection</button>

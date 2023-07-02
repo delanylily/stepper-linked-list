@@ -58,7 +58,7 @@ export class UserService {
 
   updateUser(userId: string, userForm: any): Observable<any> {
     const ref = doc(this.firestore, 'users', userId);
-    return from(updateDoc(ref, { displayName: userForm.displayName, photoURL: userForm.photoUrl }));
+    return from(updateDoc(ref, { displayName: userForm.displayName, photoURL: userForm.photoUrl, description: userForm?.description }));
   }
 
 

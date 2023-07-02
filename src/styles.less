@@ -5,9 +5,38 @@ body {
   height: 100%;
 }
 
+.ng-toast {
+  align-items: center;
+}
+
+.ng-toast.success {
+  border-left: 8px solid @color-secondary !important;
+  background-color: @color-accent !important;
+}
+
+#close {
+  padding-top: 5px;
+}
+
+.fa-check-circle {
+  color: @color-secondary !important;
+}
+
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.form-error p {
+  color: red !important;
+  padding-top: 5px;
+  margin-bottom: 5px;
+  font-size: 14px;
+}
+
+.form-control:focus {
+  border-color: @color-secondary;
+  box-shadow: 0 0 0 0.25rem @color-secondary;
 }
 
 .container-full-width {
@@ -16,10 +45,9 @@ body {
   color: white;
   margin-bottom: 20px;
 
-  & h6,
-  h6 {
-    color: white;
-  }
+  // & h6 {
+  //   color: white;
+  // }
 }
 
 .back {
@@ -164,7 +192,8 @@ h6 {
 }
 
 .book-img {
-  height: 115px;
+  // height: 115px;
+  // height: 70px;
   border-radius: 4px;
   box-shadow: @box-shadow;
   overflow: hidden;

@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
-import { doc } from '@angular/fire/firestore';
-import { getFirestore } from 'firebase/firestore';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { from, Observable, Subject } from 'rxjs';
 import { Book } from '../models/book';
-import { HotToastService } from '@ngneat/hot-toast';
+import { NgToastService } from 'ng-angular-popup';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +19,7 @@ export class DataService {
     image: '',
     availability: ''
   };
-  constructor(private firestore: AngularFirestore, private toastr: HotToastService) { }
+  constructor(private firestore: AngularFirestore, private readonly toastService: NgToastService) { }
 
   favouriteAdded() {
     this.onFavouriteAdded.next(null);
@@ -107,8 +105,10 @@ export class DataService {
     query.get().then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
         doc.ref.delete().then(() => {
-          this.toastr.success('Book removed from favourites');
-          location.reload();
+          this.toastService.success({ detail: "Book removed from favourites", duration: 3000 });
+          setTimeout(() => {
+            location.reload();
+          }, 3000);
         }).catch((error) => {
           console.log(error);
         });
@@ -123,11 +123,6 @@ export class DataService {
   deleteBook(book: Book) {
     return this.firestore.doc('/Books/' + book.id).delete();
   }
-
-  // updateBook(book: Book) {
-  //   this.deleteBook(book);
-  //   this.addBook(book);
-  // }
 }
 
 

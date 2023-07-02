@@ -1,5 +1,5 @@
 import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { HotToastService } from '@ngneat/hot-toast';
+import { NgToastService } from 'ng-angular-popup';
 import { combineLatest, map, Subscription } from 'rxjs';
 import { GenericModalComponent } from 'src/app/shared/components/generic-modal/generic-modal.component';
 import { DataService } from 'src/app/shared/data.service';
@@ -20,7 +20,7 @@ export class UserCollectionComponent implements OnInit, OnDestroy {
   bookAvailability: string;
   bookAvailabilitySubscription: Subscription;
 
-  constructor(private readonly dataService: DataService, private readonly toastr: HotToastService) { }
+  constructor(private readonly dataService: DataService, private readonly toastService: NgToastService) { }
 
   ngOnInit() {
 
@@ -39,9 +39,9 @@ export class UserCollectionComponent implements OnInit, OnDestroy {
     this.doc.map(doc => {
       if (this.itemToDelete.id === doc.payload.doc.id) {
         this.dataService.deleteUserBook(this.userId, doc.payload.doc.id).then(() => {
-          this.toastr.success('Delete successful!');
+          this.toastService.success({ detail: "Delete successful!", duration: 3000 });
         }).catch((error) => {
-          this.toastr.error(`an error occured: ${error}`);
+          this.toastService.error({ detail: error.message, duration: 5000 });
         });
         this.modal.toggleModal();
       }
@@ -50,10 +50,8 @@ export class UserCollectionComponent implements OnInit, OnDestroy {
 
   selectBookAvailability(event): void {
     this.bookAvailabilitySubscription = this.dataService.updateBookAvailability(this.userId, event.bookId, event.bookAvailability).subscribe(() => {
-      this.toastr.success('Book availability updated');
-    }, () => {
-      this.toastr.success('Book availability failed');
-    });
+      this.toastService.success({ detail: "Book availability updated", duration: 3000 });
+    }, error => this.toastService.error({ detail: "Book availability update failed", duration: 5000 }));
   }
 
 

@@ -1,9 +1,9 @@
 import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { HotToastService } from '@ngneat/hot-toast';
 import { map, Subscription } from 'rxjs';
 import { AuthService } from '../../../auth/services/auth.service';
 import { DataService } from '../../../shared/data.service';
 import { RequestBookModalComponent } from '../request-book-modal/request-book-modal.component';
+import { NgToastService } from 'ng-angular-popup';
 
 @Component({
   selector: 'step-card',
@@ -16,7 +16,7 @@ export class StepCardComponent implements OnInit, OnDestroy {
   userId: string;
   userSubscription: Subscription;
 
-  constructor(private readonly dataService: DataService, private readonly authService: AuthService, private readonly toastrService: HotToastService) { }
+  constructor(private readonly dataService: DataService, private readonly authService: AuthService, private readonly toastService: NgToastService) { }
 
   ngOnInit() {
     this.userSubscription = this.authService.user$.subscribe(user => this.userId = user.uid);
@@ -32,9 +32,9 @@ export class StepCardComponent implements OnInit, OnDestroy {
 
   saveBook(book) {
     this.dataService.addToSaved(this.userId, book).then(() => {
-      this.toastrService.success(`Book saved to your favourites!`);
+      this.toastService.success({ detail: "Book saved to your favourites!", duration: 3000 });
       this.dataService.favouriteAdded();
-    }, () => this.toastrService.error('Save unsuccessful'));
+    }, err => this.toastService.error({ detail: err.message, summary: "An error occurred", duration: 5000 }));
   }
 
   request() {

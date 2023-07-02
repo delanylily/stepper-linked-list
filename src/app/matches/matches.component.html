@@ -27,10 +27,8 @@
         </div>
       </div>
     </div>
-    <div class="container-full-width">
-      <h6>Favourites</h6>
-    </div>
     <div class="container-margin">
+      <h6>Favourites</h6>
       <div *ngIf="bookList else noFavourites" class="book-grid">
         <book-card [cardSettings]="{delete: true, summary: true}" (onRequestBook)="onRequestBook($event)"
           (bookDelete)="onBookDelete($event)" *ngFor="let book of bookList" [bookVM]="book"></book-card>

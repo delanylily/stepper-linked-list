@@ -1,50 +1,40 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
-import { HotToastService } from '@ngneat/hot-toast';
 import { Router } from '@angular/router';
-import { Subscription, switchMap, tap } from 'rxjs';
+import { Subscription } from 'rxjs';
+import { NgToastService } from 'ng-angular-popup';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['../../styles/auth-styles.less', '../../../../assets/styles/buttons.less']
 })
-export class LoginComponent implements OnInit, OnDestroy {
-  email: string = '';
-  password: string = '';
-  isLoggingIn = false;
+export class LoginComponent implements OnDestroy {
   loginSubscription: Subscription;
+  loginForm = new FormGroup({
+    email: new FormControl('', [Validators.required, Validators.email]),
+    password: new FormControl('', [Validators.required, Validators.minLength(8)])
+  });
 
-  constructor(private auth: AuthService, private readonly toastr: HotToastService, private readonly router: Router) { }
+  constructor(private readonly auth: AuthService, private readonly router: Router, private readonly toastService: NgToastService) { }
 
-  ngOnInit() {
+  login(): void {
+    if (this.loginForm.valid) {
+      this.loginSubscription = this.auth.login(this.loginForm.value).subscribe(res => {
+        this.toastService.success({ detail: "Logged in successfully", summary: res.message, duration: 3000 });
+        this.router.navigate(['/home']);
+      }, err => this.toastService.error({ detail: err.message, summary: "Login failed", duration: 5000 }));
+    }
   }
 
-  login() {
-    this.isLoggingIn = true;
-    if (this.email === '') {
-      alert('Please enter email');
-      return;
-    }
-    if (this.password === '') {
-      alert('Please enter password');
-      return;
-    }
-    this.loginSubscription = this.auth.login(this.email, this.password).pipe(
-      this.toastr.observe({
-        loading: 'Logging in...',
-        success: 'Logged in successfully',
-        error: ({ message }) => `there was an error: ${message}`
-      })
-
-    ).subscribe(() => this.router.navigate(['/home']));
-  }
-
-  signInWithGoogle() {
+  signInWithGoogle(): void {
     this.auth.signInWithGoogle();
   }
 
   ngOnDestroy(): void {
-    this.loginSubscription.unsubscribe();
+    if (this.loginSubscription) {
+      this.loginSubscription.unsubscribe();
+    }
   }
 }

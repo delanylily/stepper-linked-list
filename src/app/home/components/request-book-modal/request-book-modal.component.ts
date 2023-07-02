@@ -1,16 +1,16 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { combineLatest, map, Subscription, take } from 'rxjs';
 import { Book } from 'src/app/models/book';
 import { DataService } from 'src/app/shared/data.service';
-import { HotToastService } from '@ngneat/hot-toast';
+import { NgToastService } from 'ng-angular-popup';
 
 @Component({
   selector: 'request-book-modal',
   templateUrl: './request-book-modal.component.html',
   styleUrls: ['./request-book-modal.component.less', '../../../../assets/styles/buttons.less']
 })
-export class RequestBookModalComponent implements OnInit, OnDestroy {
+export class RequestBookModalComponent implements OnDestroy {
   @Input() viewModel: any;
   @Output() onConfirmed: EventEmitter<null> = new EventEmitter<null>();
   isOpen: boolean = false;
@@ -20,11 +20,7 @@ export class RequestBookModalComponent implements OnInit, OnDestroy {
   requestedBook: Book;
   matchDetails: any;
 
-  constructor(private readonly dataService: DataService, private router: Router, private toastr: HotToastService) { }
-
-  ngOnInit() {
-    console.log(this.viewModel, 'vm');
-  }
+  constructor(private readonly dataService: DataService, private router: Router, private readonly toastService: NgToastService) { }
 
   checkAvailability(): string {
     switch (this.viewModel?.book.availability) {
@@ -43,7 +39,7 @@ export class RequestBookModalComponent implements OnInit, OnDestroy {
     this.requestedBook = this.viewModel.book;
     const reqBookOwnerId = this.viewModel.book.userId;
     this.dataService.addToRequested(this.viewModel.user, this.viewModel.book).subscribe(res => {
-      this.toastr.success('Book requested succesfully');
+      this.toastService.success({ detail: "Book requested succesfully", summary: res.message, duration: 3000 });
     });
     this.getUserRequests(reqBookOwnerId);
   }

@@ -5,6 +5,7 @@ import { MatchesComponent } from './matches.component';
 import { BookCardModule } from '../shared/components/book-card/book-card.module';
 import { FrameModule } from '../frame/frame.module';
 import { RequestBookModule } from '../home/components/request-book-modal/request-book.module';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   imports: [

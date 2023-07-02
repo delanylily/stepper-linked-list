@@ -10,16 +10,15 @@ import { Auth, AuthModule, getAuth, provideAuth } from '@angular/fire/auth';
 import { provideFirestore } from '@angular/fire/firestore';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 
-// import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getStorage, provideStorage } from '@angular/fire/storage';
 import { getFirestore, doc, getDoc } from 'firebase/firestore';
 
-import { HotToastModule } from '@ngneat/hot-toast';
 import { FrameModule } from './frame/frame.module';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { UserProfileModule } from './user-profile/user-profile.module';
+import { NgToastModule } from 'ng-angular-popup';
 
 @NgModule({
   declarations: [
@@ -31,7 +30,6 @@ import { UserProfileModule } from './user-profile/user-profile.module';
     AuthModule,
     FrameModule,
     UserProfileModule,
-
     AppRoutingModule,
     AngularFireAuthModule,
     AngularFireStorageModule,
@@ -40,7 +38,7 @@ import { UserProfileModule } from './user-profile/user-profile.module';
     // provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
     provideStorage(() => getStorage()),
-    HotToastModule.forRoot(),
+    NgToastModule,
     NoopAnimationsModule,
   ],
   providers: [],

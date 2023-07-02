@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
-import { HotToastService } from '@ngneat/hot-toast';
+import { NgToastService } from 'ng-angular-popup';
 import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user.service';
 import { GenericModalComponent } from 'src/app/shared/components/generic-modal/generic-modal.component';
@@ -19,7 +19,7 @@ export class UserDetailsComponent implements OnInit {
   imageUrl: string;
   userForm: any;
 
-  constructor(private userService: UserService, private toastr: HotToastService, private angularStorage: AngularFireStorage) { }
+  constructor(private userService: UserService, private readonly toastService: NgToastService, private angularStorage: AngularFireStorage) { }
 
   ngOnInit() {
   }
@@ -43,10 +43,9 @@ export class UserDetailsComponent implements OnInit {
       this.userForm.value.photoUrl = this.imageUrl;
     }
     this.userService.updateUser(this.user.uid, this.userForm.value).subscribe(res => {
-      this.toastr.success('Your image has been upload successfully');
-      location.reload();
+      this.toastService.success({ detail: "Your image has been upload successfully", duration: 3000 });
     }, (error) => {
-      this.toastr.error(`There has been an error uploading your image: ${error}`);
+      this.toastService.error({ detail: `There has been an error uploading your image: ${error}`, duration: 5000 });
     });
     this.modal.toggleModal();
   }

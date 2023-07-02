@@ -5,7 +5,6 @@ import { SearchBookComponent } from './components/search-book/search-book.compon
 import { UserBooksComponent } from './components/user-books/user-books.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FrameModule } from '../frame/frame.module';
-import { AddBookConfirmationModalComponent } from './components/add-book-confirmation-modal/add-book-confirmation-modal.component';
 import { UserCollectionComponent } from './components/user-collection/user-collection.component';
 import { UserMainComponent } from './components/main/user-main.component';
 import { UserDetailsComponent } from './components/user-details/user-details.component';
@@ -33,7 +32,6 @@ import { GenericModalModule } from '../shared/components/generic-modal/generic-m
     UserDetailsComponent,
     AddBookComponent,
     UserBooksComponent,
-    AddBookConfirmationModalComponent,
     UserCollectionComponent,
     EditProfileModalComponent
   ]
