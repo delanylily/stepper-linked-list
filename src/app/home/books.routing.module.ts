@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
-import { BooksComponent } from './components/main/books.component';
+import { HomeComponent } from './components/home/home.component';
 import { RouterModule } from '@angular/router';
 
 const routes = [
   {
     path: '',
-    component: BooksComponent
+    component: HomeComponent
   }
 ];
 @NgModule({

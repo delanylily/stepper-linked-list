@@ -5,11 +5,11 @@ import { AuthService } from 'src/app/auth/services/auth.service';
 import { DataService } from 'src/app/shared/data.service';
 
 @Component({
-  selector: 'books',
-  templateUrl: './books.component.html',
-  styleUrls: ['./books.component.less']
+  selector: 'home',
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.less']
 })
-export class BooksComponent implements OnInit, OnDestroy {
+export class HomeComponent implements OnInit, OnDestroy {
   booksDataSubscription: Subscription;
   filterSubscription: Subscription;
   filteredBooks: any;
@@ -26,28 +26,27 @@ export class BooksComponent implements OnInit, OnDestroy {
     ).subscribe();
   }
 
-  filterBooks(user, books) {
-    this.booksDataSubscription = combineLatest([this.dataService.getUserFavourites(user.uid), this.dataService.getUserMatches(user.uid), this.dataService.getUserRequests(user.uid)]).pipe(
+  filterBooks(user, books): void {
+    const uid = user.uid;
+    this.booksDataSubscription = combineLatest([this.dataService.getUserFavourites(uid), this.dataService.getUserMatches(uid), this.dataService.getUserRequests(uid)]).pipe(
       map(([favourites, matches, requests]) => {
         const favoriteBookIds = favourites.map(favourite => favourite.id);
         const matchBookIds = matches.map(match => match.matchBook.id);
         const requestIds = requests.map(request => request.id);
-        return books.filter(book => !matchBookIds.includes(book.id) && !favoriteBookIds.includes(book.id) && !requestIds.includes(book.id) && book.userId !== user.uid);
+        return books.filter(book => !matchBookIds.includes(book.id) && !favoriteBookIds.includes(book.id) && !requestIds.includes(book.id) && book.userId !== uid);
       }),
-      tap(() => {
-        this.loading = false;
-      })
+      tap(() => this.loading = false)
     ).subscribe(filteredBooks => {
       this.filteredBooks = filteredBooks;
     });
   }
 
-  addBook() {
-    this.router.navigateByUrl('/add-book');
-  }
-
   ngOnDestroy(): void {
-    this.booksDataSubscription.unsubscribe();
-    this.filterSubscription.unsubscribe();
+    if (this.booksDataSubscription) {
+      this.booksDataSubscription.unsubscribe();
+    }
+    if (this.filterSubscription) {
+      this.filterSubscription.unsubscribe();
+    }
   }
 }

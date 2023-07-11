@@ -12,7 +12,8 @@ export const environment = {
     messagingSenderId: "1014459507812",
     appId: "1:1014459507812:web:30238c219ef6647a46eb71",
     measurementId: "G-Y702HN06ZH"
-  }
+  },
+  apiUrl: `https://us-central1-book-hive-6dfe9.cloudfunctions.net`,
 };
 
 /*

@@ -2,11 +2,14 @@ import { NgModule } from "@angular/core";
 import { RouterModule } from "@angular/router";
 
 import { InboxComponent } from "./inbox.component";
+import { ChatComponent } from "./chat.component";
 
 const routes = [
   {
     path: '',
-    component: InboxComponent
+    component: ChatComponent
+
+    // component: InboxComponent
   }
 
 ];

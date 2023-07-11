@@ -11,7 +11,7 @@ const routes = [
   { path: '', redirectTo: 'auth', pathMatch: 'full' as PathMatch },
   { path: '', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'verify-password', component: VerifyEmailComponent },
+  { path: 'verify-email', component: VerifyEmailComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
 ];
 

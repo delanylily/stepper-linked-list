@@ -10,6 +10,4 @@ import { FrameComponent } from "./frame.component";
   exports: [FrameComponent]
 })
 
-export class FrameModule {
-
-}
+export class FrameModule { }

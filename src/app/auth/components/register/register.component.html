@@ -6,11 +6,13 @@
     </div>
     <form class="auth-form" (ngSubmit)="register()" [formGroup]="registerForm">
       <div class="form-group">
-        <label>Username</label>
-        <input type="username" class="form-control" name="username" formControlName="username">
-        <div class="form-error" *ngIf="registerForm?.get('username').errors && registerForm?.get('username').dirty">
-          <p *ngIf="registerForm?.get('username').hasError('required')">* Username is required </p>
-          <p *ngIf="registerForm?.get('username').hasError('minlength')">* Username should be at least 3 characters long
+        <label>Display name</label>
+        <input type="displayName" class="form-control" name="username" formControlName="displayName">
+        <div class="form-error"
+          *ngIf="registerForm?.get('displayName').errors && registerForm?.get('displayName').dirty">
+          <p *ngIf="registerForm?.get('displayName').hasError('required')">* Display name is required </p>
+          <p *ngIf="registerForm?.get('displayName').hasError('minlength')">* Display name should be at least 3
+            characters long
           </p>
         </div>
       </div>

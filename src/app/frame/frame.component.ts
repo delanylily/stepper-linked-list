@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'frame',
@@ -18,10 +18,4 @@ import { Component, OnInit } from '@angular/core';
  </div>
   `
 })
-export class FrameComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit() { }
-
-}
+export class FrameComponent { }

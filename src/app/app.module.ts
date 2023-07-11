@@ -35,7 +35,7 @@ import { NgToastModule } from 'ng-angular-popup';
     AngularFireStorageModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     AngularFireModule.initializeApp(environment.firebase),
-    // provideAuth(() => getAuth()),
+    provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
     provideStorage(() => getStorage()),
     NgToastModule,
