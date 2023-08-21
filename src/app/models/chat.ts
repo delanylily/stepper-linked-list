@@ -6,12 +6,8 @@ export interface Chat {
   lastMessageDate?: Date;
   userIds: string[];
   users: User[];
-
-  // not store
-
   chatPic?: string;
   chatName?: string;
-
 }
 
 export interface Message {

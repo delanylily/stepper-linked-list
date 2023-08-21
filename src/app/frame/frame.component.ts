@@ -14,7 +14,6 @@ import { Component } from '@angular/core';
   <ng-content select="[body]"></ng-content>
 </section>
   </div>
- <!-- <div class="footer">footer</div> -->
  </div>
   `
 })

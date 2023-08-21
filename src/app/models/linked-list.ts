@@ -8,7 +8,6 @@ class Node {
     this.prev = null;
   }
 }
-
 export class DoubleLinkedList {
   head;
   tail;
