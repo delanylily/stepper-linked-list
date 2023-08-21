@@ -1,4 +1,12 @@
-# Stepper
+# Double Linked List
+This project was created to extend the concept of a singly linked list and use it in practice. I have used a linked list structure to enable efficient navigation in both forward and backward travesal. It is a generic component so can be used in other projects where you need to frequently move in both directions. 
+
+### Features
+- Insertions and Deletions- when deleting a noce, you can directly update the pointers of the adjacent nodes
+- Selection of element by index
+-  Conversion of the list to an Array for use within the UI
+
+![Linked List example](https://media.geeksforgeeks.org/wp-content/cdn-uploads/gq/2014/03/DLL1.png)
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.2.4.
 
